@@ -551,7 +551,7 @@ public class {activity_name} extends AppCompatActivity {{
                         android:id="@+id/app_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="{analysis['description']}"
+                        android:text="@string/app_description"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -606,11 +606,11 @@ public class {activity_name} extends AppCompatActivity {{
             f.write(main_layout)
     
     def create_resources(self, res_path, analysis):
-        # strings.xml
-        strings_xml = f'''<?xml version="1.0" encoding="utf-8"?>
+        # strings.xml with proper encoding
+        strings_xml = '''<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">{analysis['name']}</string>
-    <string name="app_description">{analysis['description']}</string>
+    <string name="app_name">''' + analysis['name'] + '''</string>
+    <string name="app_description">''' + analysis['description'] + '''</string>
     <string name="features_title">Özellikler</string>
     <string name="start_button">Başla</string>
     <string name="welcome_message">Hoş geldiniz!</string>
@@ -690,7 +690,7 @@ public class {activity_name} extends AppCompatActivity {{
         
         wrapper_properties = '''distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip
+distributionUrl=https\\://services.gradle.org/distributions/gradle-8.0-bin.zip
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists'''
         
@@ -1983,31 +1983,31 @@ public class UtilsTest {{
     def create_single_activity_structure(self, code_path, package_name, analysis, config):
         """Create Single Activity + Navigation Component structure"""
         from kotlin_generator import KotlinGenerator
-        
+
         # Create MainActivity
         if config['language'] == 'kotlin':
-            main_activity = KotlinGenerator.create_main_activity(package_name, analysis, config['use_compose'])
+            main_activity = self.create_kotlin_main_activity(package_name, analysis)
             ext = '.kt'
         else:
             main_activity = self.create_java_main_activity(package_name, analysis)
             ext = '.java'
-        
+
         with open(os.path.join(code_path, f'MainActivity{ext}'), 'w') as f:
             f.write(main_activity)
-        
+
         # Create Fragments for each screen
         ui_path = os.path.join(code_path, 'ui')
         os.makedirs(ui_path, exist_ok=True)
-        
+
         for activity in analysis.get('activities', [])[1:]:
             fragment_name = activity.replace('Activity', '')
             fragment_path = os.path.join(ui_path, fragment_name.lower())
             os.makedirs(fragment_path, exist_ok=True)
-            
+
             if config['language'] == 'kotlin':
                 fragment_code = KotlinGenerator.create_fragment(package_name, fragment_name, analysis)
                 viewmodel_code = KotlinGenerator.create_viewmodel(package_name, fragment_name)
-                
+
                 with open(os.path.join(fragment_path, f'{fragment_name}Fragment.kt'), 'w') as f:
                     f.write(fragment_code)
                 with open(os.path.join(fragment_path, f'{fragment_name}ViewModel.kt'), 'w') as f:
@@ -2375,11 +2375,11 @@ android {{
     }}
     
     compileOptions {{
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }}
-    
-    {'kotlinOptions { jvmTarget = "17" }' if config['language'] == 'kotlin' else ''}
+
+    {'kotlinOptions { jvmTarget = "11" }' if config['language'] == 'kotlin' else ''}
     
     buildFeatures {{
         viewBinding true
@@ -2487,6 +2487,53 @@ allprojects {{
         
         return '\n'.join(deps)
     
+    def create_kotlin_main_activity(self, package_name, analysis):
+        """Create a proper Kotlin MainActivity with view binding"""
+        return f'''package {package_name}
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import {package_name}.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {{
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {{
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setupUI()
+        setupFeaturesList()
+    }}
+
+    private fun setupUI() {{
+        binding.appDescription.text = getString(R.string.app_description)
+        binding.startButton.setOnClickListener {{
+            // Handle button click
+        }}
+    }}
+
+    private fun setupFeaturesList() {{
+        val features = listOf(
+{self.generate_kotlin_features_list(analysis['features'])}
+        )
+
+        binding.featuresRecycler.apply {{
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = FeaturesAdapter(features)
+        }}
+    }}
+}}'''
+
+    def generate_kotlin_features_list(self, features):
+        """Generate Kotlin list of features"""
+        features_code = ""
+        for feature in features:
+            features_code += f'            "{feature}",\n'
+        return features_code.rstrip(',\n')
+
     def create_advanced_features(self, project_path, package_name, analysis, config):
         """Enhanced with Kotlin support"""
         code_path = os.path.join(project_path, 'app', 'src', 'main',
@@ -2502,7 +2549,7 @@ allprojects {{
             repo_code = KotlinGenerator.create_repository(package_name)
             with open(os.path.join(data_path, 'AppRepository.kt'), 'w') as f:
                 f.write(repo_code)
-            
+
             # Utils
             utils_code = KotlinGenerator.create_utils(package_name)
             utils_path = os.path.join(code_path, 'utils')
