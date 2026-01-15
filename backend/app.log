@@ -134,3 +134,516 @@ AttributeError: 'AndroidAppGenerator' object has no attribute 'create_java_main_
 2026-01-15 20:38:48,178 - __main__ - INFO - Starting Android App Generator API Server
 2026-01-15 20:38:48,208 - werkzeug - WARNING -  * Debugger is active!
 2026-01-15 20:38:48,211 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:02:51,228 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:02:51,385 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-16 00:02:51,385 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-16 00:02:51,391 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:02:53,122 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:02:53,157 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:02:53,164 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:04:09,316 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:09] "GET / HTTP/1.1" 200 -
+2026-01-16 00:04:09,502 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-01-16 00:04:29,703 - __main__ - INFO - Started generation for project ea8bfd0a-4ce1-4a78-990e-e8743aaafcba by user None
+2026-01-16 00:04:29,724 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:29] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:04:30,011 - __main__ - INFO - Started generation for project 4cfb3da4-5cd6-4319-9503-aca36e712bf9 by user None
+2026-01-16 00:04:30,031 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:30] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:04:32,051 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:32] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:32,290 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:32] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:33,741 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:33] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:34,365 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:34] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:35,741 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:35] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:36,363 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:36] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:37,743 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:37] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:38,356 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:38] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:39,740 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:39] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:40,345 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:40] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:41,750 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:41] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:42,361 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:42] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:43,747 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:43] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:44,347 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:44] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:45,743 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:45] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:46,360 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:46] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:47,740 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:47] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:48,361 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:48] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:49,750 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:49] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:50,363 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:50] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:51,745 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:51] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:52,358 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:52] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:53,747 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:53] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:54,364 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:54] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:55,745 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:55] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:56,355 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:56] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:57,739 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:57] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:04:58,355 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:58] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:04:58,793 - __main__ - ERROR - Error generating project ea8bfd0a-4ce1-4a78-990e-e8743aaafcba: [Errno 2] No such file or directory: 'C:/android_projects\\TaskMaster\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 525, in generate_app_async
+    result = generator.generate_from_idea(idea, language, architecture, ui_framework)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\android_generator.py", line 80, in generate_from_idea
+    self.create_project_structure(project_path, package_name, analysis, config)
+  File "c:\codecraftai\backend\android_generator.py", line 159, in create_project_structure
+    self.create_production_files(project_path, package_name, analysis)
+  File "c:\codecraftai\backend\android_generator.py", line 1519, in create_production_files
+    with open(os.path.join(java_path, 'MainViewModel.java'), 'w') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/android_projects\\TaskMaster\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+2026-01-16 00:04:59,065 - __main__ - ERROR - Error generating project 4cfb3da4-5cd6-4319-9503-aca36e712bf9: [Errno 2] No such file or directory: 'C:/android_projects\\TaskMaster\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 525, in generate_app_async
+    result = generator.generate_from_idea(idea, language, architecture, ui_framework)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\android_generator.py", line 80, in generate_from_idea
+    self.create_project_structure(project_path, package_name, analysis, config)
+  File "c:\codecraftai\backend\android_generator.py", line 159, in create_project_structure
+    self.create_production_files(project_path, package_name, analysis)
+  File "c:\codecraftai\backend\android_generator.py", line 1519, in create_production_files
+    with open(os.path.join(java_path, 'MainViewModel.java'), 'w') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/android_projects\\TaskMaster\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+2026-01-16 00:04:59,754 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:04:59] "GET /status/ea8bfd0a-4ce1-4a78-990e-e8743aaafcba HTTP/1.1" 200 -
+2026-01-16 00:05:00,364 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:05:00] "GET /status/4cfb3da4-5cd6-4319-9503-aca36e712bf9 HTTP/1.1" 200 -
+2026-01-16 00:05:22,224 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\android_generator.py', reloading
+2026-01-16 00:05:23,058 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:05:27,066 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:05:27,100 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:05:27,103 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:05:35,285 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:05:35,929 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:05:41,982 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:05:42,035 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:05:42,043 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:06:00,695 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:00] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:06:16,679 - __main__ - INFO - Started generation for project 85ffa4bb-ac06-4340-a6a1-9a508f615581 by user None
+2026-01-16 00:06:16,685 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:16] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:06:18,694 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:18] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:21,003 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:21] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:22,699 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:22] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:25,007 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:25] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:26,708 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:26] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:29,017 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:29] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:30,715 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:30] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:33,002 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:33] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:34,696 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:34] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:37,010 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:37] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:38,701 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:38] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:41,011 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:41] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:42,701 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:42] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:45,011 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:45] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:06:45,689 - __main__ - ERROR - Error generating project 85ffa4bb-ac06-4340-a6a1-9a508f615581: name 'project_path' is not defined
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 525, in generate_app_async
+    result = generator.generate_from_idea(idea, language, architecture, ui_framework, project_path)
+                                                                                      ^^^^^^^^^^^^
+NameError: name 'project_path' is not defined
+2026-01-16 00:06:46,707 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:06:46] "GET /status/85ffa4bb-ac06-4340-a6a1-9a508f615581 HTTP/1.1" 200 -
+2026-01-16 00:07:08,952 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:07:09,434 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:07:12,454 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:07:12,490 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:07:12,494 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:07:20,693 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:07:21,400 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:07:24,641 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:07:24,679 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:07:24,686 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:07:42,418 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:07:42] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:07:52,204 - __main__ - ERROR - Error in generate_app: name 'project_path' is not defined
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 165, in wrapped
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 203, in wrapped
+    response = f(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 466, in generate_app
+    args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path),
+                                                                                                      ^^^^^^^^^^^^
+NameError: name 'project_path' is not defined
+2026-01-16 00:07:52,221 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:07:52] "[35m[1mPOST /api/generate-app HTTP/1.1[0m" 500 -
+2026-01-16 00:07:53,680 - __main__ - ERROR - Error in generate_app: name 'project_path' is not defined
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 165, in wrapped
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 203, in wrapped
+    response = f(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 466, in generate_app
+    args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path),
+                                                                                                      ^^^^^^^^^^^^
+NameError: name 'project_path' is not defined
+2026-01-16 00:07:53,697 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:07:53] "[35m[1mPOST /api/generate-app HTTP/1.1[0m" 500 -
+2026-01-16 00:07:54,649 - __main__ - ERROR - Error in generate_app: name 'project_path' is not defined
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 165, in wrapped
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 203, in wrapped
+    response = f(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 466, in generate_app
+    args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path),
+                                                                                                      ^^^^^^^^^^^^
+NameError: name 'project_path' is not defined
+2026-01-16 00:07:54,664 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:07:54] "[35m[1mPOST /api/generate-app HTTP/1.1[0m" 500 -
+2026-01-16 00:07:56,253 - __main__ - ERROR - Error in generate_app: name 'project_path' is not defined
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 165, in wrapped
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 203, in wrapped
+    response = f(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\app.py", line 466, in generate_app
+    args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path),
+                                                                                                      ^^^^^^^^^^^^
+NameError: name 'project_path' is not defined
+2026-01-16 00:07:56,254 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:07:56] "[35m[1mPOST /api/generate-app HTTP/1.1[0m" 500 -
+2026-01-16 00:08:27,476 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:08:27,956 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:08:30,334 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:08:30,366 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:08:30,370 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:08:55,518 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:08:55] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:08:57,146 - __main__ - INFO - Started generation for project cca81ac8-ab76-49ec-bb5b-71537e3336f4 by user None
+2026-01-16 00:08:57,156 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:08:57] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:08:57,166 - __main__ - INFO - Started generation for project 44048790-0771-49f3-a450-0901b03e9b17 by user None
+2026-01-16 00:08:57,173 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:08:57] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:08:59,490 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:08:59] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:08:59,490 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:08:59] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:01,174 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:01] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:01,515 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:01] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:03,175 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:03] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:03,497 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:03] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:05,173 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:05] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:05,487 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:05] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:07,171 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:07] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:07,497 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:07] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:09,180 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:09] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:09,486 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:09] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:11,483 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:11] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:11,502 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:11] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:13,179 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:13] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:13,491 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:13] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:15,483 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:15] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:15,495 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:15] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:17,173 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:17] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:17,499 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:17] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:19,174 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:19] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:19,487 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:19] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:21,183 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:21] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:21,499 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:21] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:23,486 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:23] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:23,511 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:23] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:25,185 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:25] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:25,500 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:25] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:26,208 - __main__ - ERROR - Error generating project cca81ac8-ab76-49ec-bb5b-71537e3336f4: [Errno 2] No such file or directory: 'C:/android_projects\\cca81ac8-ab76-49ec-bb5b-71537e3336f4\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 526, in generate_app_async
+    result = generator.generate_from_idea(idea, language, architecture, ui_framework, project_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\android_generator.py", line 81, in generate_from_idea
+    self.create_project_structure(project_path, package_name, analysis, config)
+  File "c:\codecraftai\backend\android_generator.py", line 160, in create_project_structure
+    self.create_production_files(project_path, package_name, analysis)
+  File "c:\codecraftai\backend\android_generator.py", line 1520, in create_production_files
+    with open(os.path.join(java_path, 'MainViewModel.java'), 'w') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/android_projects\\cca81ac8-ab76-49ec-bb5b-71537e3336f4\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+2026-01-16 00:09:26,222 - __main__ - ERROR - Error generating project 44048790-0771-49f3-a450-0901b03e9b17: [Errno 2] No such file or directory: 'C:/android_projects\\44048790-0771-49f3-a450-0901b03e9b17\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 526, in generate_app_async
+    result = generator.generate_from_idea(idea, language, architecture, ui_framework, project_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\android_generator.py", line 81, in generate_from_idea
+    self.create_project_structure(project_path, package_name, analysis, config)
+  File "c:\codecraftai\backend\android_generator.py", line 160, in create_project_structure
+    self.create_production_files(project_path, package_name, analysis)
+  File "c:\codecraftai\backend\android_generator.py", line 1520, in create_production_files
+    with open(os.path.join(java_path, 'MainViewModel.java'), 'w') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/android_projects\\44048790-0771-49f3-a450-0901b03e9b17\\app\\src\\main\\java\\com\\example\\taskmaster\\MainViewModel.java'
+2026-01-16 00:09:27,482 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:27] "GET /status/cca81ac8-ab76-49ec-bb5b-71537e3336f4 HTTP/1.1" 200 -
+2026-01-16 00:09:27,495 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:09:27] "GET /status/44048790-0771-49f3-a450-0901b03e9b17 HTTP/1.1" 200 -
+2026-01-16 00:09:47,443 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\android_generator.py', reloading
+2026-01-16 00:09:47,869 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:09:51,161 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:09:51,204 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:09:51,208 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:10:20,181 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:20] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:10:21,949 - __main__ - INFO - Started generation for project d4d1ea2e-0c04-4374-ba52-5fd76679c513 by user None
+2026-01-16 00:10:21,956 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:21] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:10:23,969 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:23] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:26,286 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:26] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:27,968 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:27] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:30,281 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:30] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:31,977 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:31] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:34,286 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:34] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:35,985 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:35] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:38,288 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:38] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:39,978 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:39] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:42,269 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:42] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:43,971 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:43] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:46,292 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:46] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:47,975 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:47] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:50,286 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:50] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:10:51,039 - __main__ - ERROR - Error generating project d4d1ea2e-0c04-4374-ba52-5fd76679c513: [Errno 2] No such file or directory: 'C:/android_projects\\d4d1ea2e-0c04-4374-ba52-5fd76679c513\\app\\src\\main\\kotlin\\com\\example\\taskmaster\\data\\AppRepository.kt'
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 526, in generate_app_async
+    result = generator.generate_from_idea(idea, language, architecture, ui_framework, project_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\codecraftai\backend\android_generator.py", line 81, in generate_from_idea
+    self.create_project_structure(project_path, package_name, analysis, config)
+  File "c:\codecraftai\backend\android_generator.py", line 163, in create_project_structure
+    self.create_advanced_features(project_path, package_name, analysis, config)
+  File "c:\codecraftai\backend\android_generator.py", line 2498, in create_advanced_features
+    with open(os.path.join(code_path, 'data', 'AppRepository.kt'), 'w') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/android_projects\\d4d1ea2e-0c04-4374-ba52-5fd76679c513\\app\\src\\main\\kotlin\\com\\example\\taskmaster\\data\\AppRepository.kt'
+2026-01-16 00:10:51,971 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:10:51] "GET /status/d4d1ea2e-0c04-4374-ba52-5fd76679c513 HTTP/1.1" 200 -
+2026-01-16 00:11:15,331 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\android_generator.py', reloading
+2026-01-16 00:11:15,941 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:11:19,455 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:11:19,486 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:11:19,491 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:12:41,920 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:41] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:12:43,994 - __main__ - INFO - Started generation for project 47a5089d-9667-4cc9-a201-25eb0a4d5a85 by user None
+2026-01-16 00:12:43,999 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:43] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:12:46,016 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:46] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:12:48,318 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:48] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:12:50,013 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:50] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:12:52,334 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:52] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:12:54,012 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:54] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:12:56,329 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:56] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:12:58,012 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:12:58] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:00,336 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:00] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:02,014 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:02] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:04,326 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:04] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:06,016 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:06] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:08,333 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:08] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:10,011 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:10] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:12,341 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:12] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:13,068 - __main__ - INFO - Completed generation for project 47a5089d-9667-4cc9-a201-25eb0a4d5a85 in 29.07s
+2026-01-16 00:13:14,018 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:14] "GET /status/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1" 200 -
+2026-01-16 00:13:20,019 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:13:20] "[31m[1mPOST /api/build-apk/47a5089d-9667-4cc9-a201-25eb0a4d5a85 HTTP/1.1[0m" 405 -
+2026-01-16 00:13:37,189 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:13:37,630 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:16:09,510 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:16:09,597 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-01-16 00:16:09,597 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-16 00:16:09,599 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:16:11,522 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:16:11,556 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:16:11,561 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:16:34,491 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:34] "GET / HTTP/1.1" 200 -
+2026-01-16 00:16:42,314 - __main__ - INFO - Started generation for project c320df66-d0c1-4053-b3e6-d63852e3efee by user None
+2026-01-16 00:16:42,327 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:42] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:16:44,335 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:44] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:16:46,646 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:46] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:16:48,356 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:48] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:16:50,656 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:50] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:16:52,346 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:52] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:16:54,656 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:54] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:16:56,351 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:56] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:16:58,652 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:16:58] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:00,339 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:00] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:02,648 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:02] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:04,339 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:04] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:06,648 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:06] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:08,352 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:08] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:10,648 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:10] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:11,390 - __main__ - INFO - Completed generation for project c320df66-d0c1-4053-b3e6-d63852e3efee in 29.06s
+2026-01-16 00:17:12,349 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:12] "GET /status/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1" 200 -
+2026-01-16 00:17:14,158 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:17:14] "[31m[1mPOST /api/build-apk/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1[0m" 405 -
+2026-01-16 00:18:36,741 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:36] "[31m[1mPOST /api/build-apk/c320df66-d0c1-4053-b3e6-d63852e3efee HTTP/1.1[0m" 405 -
+2026-01-16 00:18:40,992 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:40] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:18:42,730 - __main__ - INFO - Started generation for project ca7c8361-f634-4efb-8b30-abf2bd953d10 by user None
+2026-01-16 00:18:42,740 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:42] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:18:45,488 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:45] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:18:47,177 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:47] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:18:49,493 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:49] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:18:51,184 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:51] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:18:53,494 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:53] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:18:55,180 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:55] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:18:57,515 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:57] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:18:59,179 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:18:59] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:01,517 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:01] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:02,746 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:02] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:05,113 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:05] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:06,756 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:06] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:09,073 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:09] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:10,757 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:10] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:11,856 - __main__ - INFO - Completed generation for project ca7c8361-f634-4efb-8b30-abf2bd953d10 in 29.12s
+2026-01-16 00:19:13,088 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:13] "GET /status/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1" 200 -
+2026-01-16 00:19:14,114 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:19:14] "[31m[1mPOST /api/build-apk/ca7c8361-f634-4efb-8b30-abf2bd953d10 HTTP/1.1[0m" 405 -
+2026-01-16 00:21:46,800 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:21:46] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:21:48,837 - __main__ - INFO - Started generation for project f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 by user None
+2026-01-16 00:21:48,839 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:21:48] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:21:50,859 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:21:50] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:21:53,173 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:21:53] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:21:54,859 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:21:54] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:21:57,178 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:21:57] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:21:58,867 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:21:58] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:01,178 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:01] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:02,861 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:02] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:05,177 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:05] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:06,856 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:06] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:09,172 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:09] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:10,857 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:10] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:13,172 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:13] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:14,872 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:14] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:17,180 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:17] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:17,905 - __main__ - INFO - Completed generation for project f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 in 29.06s
+2026-01-16 00:22:18,863 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:18] "GET /status/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1" 200 -
+2026-01-16 00:22:22,461 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:22:22] "[31m[1mPOST /api/build-apk/f09ec2f6-45ef-4a37-a9ce-2cbcc57f1d91 HTTP/1.1[0m" 405 -
+2026-01-16 00:24:49,522 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:24:49] "GET / HTTP/1.1" 200 -
+2026-01-16 00:24:51,657 - __main__ - INFO - Started generation for project a0748e99-ac93-41de-998c-d8f20cee5146 by user None
+2026-01-16 00:24:51,694 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:24:51] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:24:53,732 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:24:53] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:24:56,064 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:24:56] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:24:57,745 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:24:57] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:00,085 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:00] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:01,736 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:01] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:04,048 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:04] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:05,732 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:05] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:08,044 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:08] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:09,729 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:09] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:12,044 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:12] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:13,729 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:13] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:16,048 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:16] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:17,741 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:17] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:20,050 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:20] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:25:21,054 - __main__ - INFO - Completed generation for project a0748e99-ac93-41de-998c-d8f20cee5146 in 29.38s
+2026-01-16 00:25:21,744 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:25:21] "GET /status/a0748e99-ac93-41de-998c-d8f20cee5146 HTTP/1.1" 200 -
+2026-01-16 00:27:26,287 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:26] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:27:28,049 - __main__ - INFO - Started generation for project 3eed7a02-3598-4e2b-af34-e2decb9dc791 by user None
+2026-01-16 00:27:28,055 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:28] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:27:30,088 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:30] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:32,389 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:32] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:34,071 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:34] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:36,381 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:36] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:38,080 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:38] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:40,391 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:40] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:42,077 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:42] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:44,389 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:44] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:46,067 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:46] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:48,382 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:48] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:50,076 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:50] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:52,385 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:52] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:54,084 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:54] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:56,387 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:56] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:27:57,110 - __main__ - INFO - Completed generation for project 3eed7a02-3598-4e2b-af34-e2decb9dc791 in 29.07s
+2026-01-16 00:27:58,097 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:27:58] "GET /status/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:28:01,669 - __main__ - INFO - Downloaded project 3eed7a02-3598-4e2b-af34-e2decb9dc791
+2026-01-16 00:28:01,684 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:28:01] "GET /download/3eed7a02-3598-4e2b-af34-e2decb9dc791 HTTP/1.1" 200 -
+2026-01-16 00:31:24,233 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:31:24] "GET / HTTP/1.1" 200 -
+2026-01-16 00:31:25,168 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:31:25] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:31:40,222 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:31:40] "GET / HTTP/1.1" 200 -
+2026-01-16 00:31:41,114 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:31:41] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:31:41,433 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:31:41] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:32:36,781 - __main__ - INFO - Started generation for project fd5e332d-3bfc-4575-a13a-50a943f45ace by user None
+2026-01-16 00:32:36,787 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:36] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:32:39,114 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:39] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:40,809 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:40] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:43,104 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:43] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:44,804 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:44] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:47,105 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:47] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:48,801 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:48] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:51,111 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:51] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:52,810 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:52] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:55,111 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:55] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:56,808 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:56] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:32:59,107 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:32:59] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:33:00,811 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:33:00] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:33:03,115 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:33:03] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:33:04,806 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:33:04] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:33:05,863 - __main__ - INFO - Completed generation for project fd5e332d-3bfc-4575-a13a-50a943f45ace in 29.07s
+2026-01-16 00:33:07,120 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:33:07] "GET /status/fd5e332d-3bfc-4575-a13a-50a943f45ace HTTP/1.1" 200 -
+2026-01-16 00:33:36,172 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:33:36] "[36mGET / HTTP/1.1[0m" 304 -
+2026-01-16 00:39:02,930 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:39:02] "GET / HTTP/1.1" 200 -
+2026-01-16 00:41:43,169 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:41:43] "GET / HTTP/1.1" 200 -
+2026-01-16 00:41:49,158 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:41:49] "GET /?features=database&features=network&features=di&features=testing HTTP/1.1" 200 -
+2026-01-16 00:44:29,950 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:29] "GET /?features=database&features=network&features=di&features=testing HTTP/1.1" 200 -
+2026-01-16 00:44:31,270 - __main__ - INFO - Started generation for project 48980b53-531f-451f-b750-0c8a8100b356 by user None
+2026-01-16 00:44:31,289 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:31] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:44:33,310 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:33] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:35,608 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:35] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:37,299 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:37] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:39,613 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:39] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:41,302 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:41] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:43,612 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:43] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:45,301 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:45] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:47,607 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:47] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:49,300 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:49] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:51,617 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:51] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:53,313 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:53] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:55,620 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:55] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:57,308 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:57] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:44:59,620 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:44:59] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:45:00,355 - __main__ - INFO - Completed generation for project 48980b53-531f-451f-b750-0c8a8100b356 in 29.09s
+2026-01-16 00:45:01,318 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:01] "GET /status/48980b53-531f-451f-b750-0c8a8100b356 HTTP/1.1" 200 -
+2026-01-16 00:45:22,270 - __main__ - INFO - Started generation for project 86afc7b8-d8bf-4328-b6d6-740df6d5040f by user None
+2026-01-16 00:45:22,286 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:22] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:45:24,304 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:24] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:26,605 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:26] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:28,310 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:28] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:30,617 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:30] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:32,310 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:32] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:34,627 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:34] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:36,303 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:36] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:38,608 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:38] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:40,303 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:40] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:42,610 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:42] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:44,307 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:44] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:46,605 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:46] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:48,311 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:48] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:50,618 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:50] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:45:51,330 - __main__ - INFO - Completed generation for project 86afc7b8-d8bf-4328-b6d6-740df6d5040f in 29.06s
+2026-01-16 00:45:52,306 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:45:52] "GET /status/86afc7b8-d8bf-4328-b6d6-740df6d5040f HTTP/1.1" 200 -
+2026-01-16 00:46:24,825 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:46:25,469 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:46:28,764 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:46:28,800 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:46:28,804 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:47:57,426 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:47:57] "[36mGET /?features=database&features=network&features=di&features=testing HTTP/1.1[0m" 304 -
+2026-01-16 00:47:58,889 - __main__ - INFO - Started generation for project 562d2c37-b279-451c-8833-c1263ee68905 by user None
+2026-01-16 00:47:58,904 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:47:58] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:48:00,928 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:00] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:03,237 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:03] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:04,919 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:04] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:07,229 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:07] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:08,921 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:08] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:11,231 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:11] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:12,919 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:12] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:15,227 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:15] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:16,924 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:16] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:19,228 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:19] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:20,921 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:20] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:23,235 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:23] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:24,929 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:24] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:27,228 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:27] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:48:27,952 - __main__ - INFO - Completed generation for project 562d2c37-b279-451c-8833-c1263ee68905 in 29.06s
+2026-01-16 00:48:28,934 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:48:28] "GET /status/562d2c37-b279-451c-8833-c1263ee68905 HTTP/1.1" 200 -
+2026-01-16 00:50:27,997 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:50:28,522 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:50:31,455 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:50:31,488 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:50:31,492 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:50:41,665 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:50:41,902 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:50:44,412 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:50:44,448 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:50:44,453 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:51:01,819 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\android_generator.py', reloading
+2026-01-16 00:51:02,455 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:51:06,544 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:51:06,580 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:51:06,584 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:51:13,751 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:51:14,445 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:51:17,756 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:51:17,804 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:51:17,809 - werkzeug - INFO -  * Debugger PIN: 223-406-450

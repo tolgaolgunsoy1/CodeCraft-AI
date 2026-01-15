@@ -253,6 +253,159 @@ object NetworkModule {
         }
     
     @staticmethod
+    def generate_core_database():
+        """Generate :core:database module"""
+        return {
+            'build.gradle.kts': '''plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+}
+
+android {
+    namespace = "com.titan.finance.core.database"
+    compileSdk = 34
+
+    defaultConfig {
+        minSdk = 26
+    }
+}
+
+dependencies {
+    implementation(project(":core:common"))
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+}
+''',
+            'src/main/kotlin/AppDatabase.kt': '''package com.titan.finance.core.database
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+
+// AI Architecture Note: Single source of truth for data persistence
+// Room database with type-safe queries and compile-time verification
+@Database(entities = [], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
+    // Define your DAOs here
+    // abstract fun taskDao(): TaskDao
+}
+'''
+        }
+
+    @staticmethod
+    def generate_core_testing():
+        """Generate :core:testing module"""
+        return {
+            'build.gradle.kts': '''plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+}
+
+android {
+    namespace = "com.titan.finance.core.testing"
+    compileSdk = 34
+
+    defaultConfig {
+        minSdk = 26
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    implementation(project(":core:common"))
+
+    implementation(libs.junit)
+    implementation(libs.mockk)
+    implementation(libs.turbine)
+}
+''',
+            'src/main/kotlin/TestUtils.kt': '''package com.titan.finance.core.testing
+
+// AI Architecture Note: Shared testing utilities
+// Common test helpers and utilities for all modules
+object TestUtils {
+    // Add test utilities here
+}
+'''
+        }
+
+    @staticmethod
+    def generate_app_module():
+        """Generate :app module"""
+        return '''plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+}
+
+android {
+    namespace = "com.titan.finance"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.titan.finance"
+        minSdk = 26
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+}
+
+dependencies {
+    // Core modules
+    implementation(project(":core:common"))
+    implementation(project(":core:network"))
+    implementation(project(":core:database"))
+    implementation(project(":core:ui"))
+
+    // Feature modules
+    implementation(project(":feature:tasks"))
+    implementation(project(":feature:analytics"))
+
+    // Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.bundles.compose)
+}
+'''
+
+    @staticmethod
     def generate_core_ui():
         """Generate :core:ui module with Design System"""
         return {
@@ -264,15 +417,15 @@ object NetworkModule {
 android {
     namespace = "com.titan.finance.core.ui"
     compileSdk = 34
-    
+
     defaultConfig {
         minSdk = 26
     }
-    
+
     buildFeatures {
         compose = true
     }
-    
+
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -280,7 +433,7 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    
+
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.coil.compose)
@@ -324,7 +477,7 @@ fun TitanFinanceTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
-    
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,

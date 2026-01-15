@@ -125,6 +125,10 @@ auth_manager.db_session = db_session
 # realtime_manager.init_app(app, config.CORS_ORIGINS)
 # register_pwa_routes(app)
 
+# Setup APK deployment routes (requires qrcode, Pillow)
+# from apk_deployment import setup_deployment_routes
+# setup_deployment_routes(app, config.PROJECT_STORAGE_PATH)
+
 # Global storage with thread safety
 project_status = {}
 active_generations = {}
@@ -400,6 +404,7 @@ def generate_app():
         user = g.db_session.query(User).filter_by(id=user_id).first()
 
     idea = data.get('idea', '').strip()
+    app_name = data.get('appName', '').strip() or 'MyApp'
     language = data.get('language', 'java').lower()
     theme = data.get('theme', 'light')
     category = data.get('category', 'auto')
@@ -419,11 +424,16 @@ def generate_app():
     # Generate unique project ID
     project_id = str(uuid.uuid4())
 
+    # Create safe folder name from app name
+    safe_app_name = ''.join(c for c in app_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+    folder_name = f"{safe_app_name}_{project_id[:8]}" if safe_app_name else project_id
+    project_path = os.path.join(config.PROJECT_STORAGE_PATH, folder_name)
+
     # Create project record in database
     project = Project(
         id=project_id,
         user_id=user.id if user else None,
-        name=f"App_{project_id[:8]}",
+        name=app_name,
         description=idea[:200],
         category=category,
         language=language,
@@ -463,7 +473,7 @@ def generate_app():
         # Start generation in background
         thread = threading.Thread(
             target=generate_app_async,
-            args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework),
+            args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path),
             daemon=True
         )
         thread.start()
@@ -491,7 +501,7 @@ def generate_app():
         'estimated_completion': project_status[project_id]['estimated_completion']
     })
 
-def generate_app_async(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework):
+def generate_app_async(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path):
     try:
         steps = [
             ('analyzing', 15, 'Fikir analiz ediliyor...', 3),
@@ -522,7 +532,7 @@ def generate_app_async(project_id, idea, language, theme, category, advanced_fea
         
         # Generate app
         generator = AndroidAppGenerator()
-        result = generator.generate_from_idea(idea, language, architecture, ui_framework)
+        result = generator.generate_from_idea(idea, language, architecture, ui_framework, project_path, app_name)
         
         # Calculate generation time
         generation_time = time.time() - project_analytics[project_id]['start_time']

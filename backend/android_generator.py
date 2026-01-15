@@ -62,11 +62,15 @@ class AndroidAppGenerator:
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
     
-    def generate_from_idea(self, idea, language='java', architecture='single_activity', ui_framework='xml'):
+    def generate_from_idea(self, idea, language='java', architecture='single_activity', ui_framework='xml', project_path=None, app_name=None):
         analysis = self.analyze_idea(idea)
+        # Use provided app_name if available, otherwise use template name
+        if app_name:
+            analysis['name'] = app_name
         app_name = analysis['name']
         package_name = f"com.example.{app_name.lower().replace(' ', '')}"
-        project_path = os.path.join(self.output_dir, app_name.replace(' ', '_'))
+        if project_path is None:
+            project_path = os.path.join(self.output_dir, app_name.replace(' ', '_'))
         
         # Enhanced configuration
         config = {
@@ -1464,6 +1468,7 @@ XL:  32dp (Çok büyük boşluklar)
     def create_production_files(self, project_path, package_name, analysis):
         # ViewModel oluştur
         java_path = os.path.join(project_path, 'app', 'src', 'main', 'java', *package_name.split('.'))
+        os.makedirs(java_path, exist_ok=True)
         
         # MainViewModel.java
         viewmodel_code = f'''package {package_name};
@@ -2484,16 +2489,18 @@ allprojects {{
     
     def create_advanced_features(self, project_path, package_name, analysis, config):
         """Enhanced with Kotlin support"""
-        code_path = os.path.join(project_path, 'app', 'src', 'main', 
-                                 'kotlin' if config['language'] == 'kotlin' else 'java', 
-                                 *package_name.split('.'))
-        
+        code_path = os.path.join(project_path, 'app', 'src', 'main',
+                                  'kotlin' if config['language'] == 'kotlin' else 'java',
+                                  *package_name.split('.'))
+
         if config['language'] == 'kotlin':
             from kotlin_generator import KotlinGenerator
-            
+
             # Repository
+            data_path = os.path.join(code_path, 'data')
+            os.makedirs(data_path, exist_ok=True)
             repo_code = KotlinGenerator.create_repository(package_name)
-            with open(os.path.join(code_path, 'data', 'AppRepository.kt'), 'w') as f:
+            with open(os.path.join(data_path, 'AppRepository.kt'), 'w') as f:
                 f.write(repo_code)
             
             # Utils

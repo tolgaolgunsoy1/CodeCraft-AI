@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCraft Pro - Kurumsal Android Geliştirme Platformu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #1e40af;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            margin: -40px -40px 40px -40px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-top: 60px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            font-size: 24px;
+            color: #1e293b;
+            margin-bottom: 32px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            color: #1e293b;
+            font-size: 15px;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2364748b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        option {
+            background: white;
+            color: #1e293b;
+        }
+
+        /* Advanced Options */
+        .advanced-toggle {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .advanced-toggle:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .advanced-options {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .advanced-options.open {
+            max-height: 1200px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .checkbox-item:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #3b82f6;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #3b82f6;
+            border: 1px solid #3b82f6;
+        }
+
+        .btn-secondary:hover {
+            background: #eff6ff;
+        }
+
+        /* Status Panel */
+        .status-panel {
+            display: none;
+            margin-top: 30px;
+            padding: 24px;
+            background: #f8fafc;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .status-panel.show {
+            display: block;
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .status-message {
+            font-size: 16px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .progress-percent {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            border-radius: 4px;
+            height: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease-out;
+        }
+
+        .steps-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .step-item.active {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .step-item.completed {
+            opacity: 0.6;
+        }
+
+        .step-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .step-item.completed .step-icon {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-item.active .step-icon {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: #475569;
+        }
+
+        /* Download Section */
+        .download-section {
+            display: none;
+            text-align: center;
+            padding: 32px;
+            background: #f0fdf4;
+            border-radius: 6px;
+            border: 1px solid #86efac;
+            margin-top: 24px;
+        }
+
+        .download-section.show {
+            display: block;
+        }
+
+        .download-section h3 {
+            color: #166534;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        /* Features Panel */
+        .features-panel {
+            position: sticky;
+            top: 100px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .feature-content p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Templates */
+        .templates-section {
+            margin-bottom: 30px;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 6px;
+            padding: 24px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .template-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .template-card.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .template-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .template-card h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .template-card p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .info-box-icon {
+            color: #3b82f6;
+            font-size: 20px;
+        }
+
+        .info-box-content {
+            flex: 1;
+        }
+
+        .info-box-content p {
+            font-size: 14px;
+            color: #1e40af;
+            line-height: 1.5;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-header h2 {
+            font-size: 22px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .guide-step {
+            background: #f8fafc;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .guide-step h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .guide-step p {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .guide-step code {
+            background: #1e293b;
+            color: #10b981;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-panel {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .container {
+                padding: 24px;
+            }
+
+            .hero {
+                padding: 60px 24px;
+                margin: -24px -24px 24px -24px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>CodeCraft Pro</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#features">Özellikler</a>
+                <a href="#templates">Şablonlar</a>
+                <a href="#docs">Dokümantasyon</a>
+                <a href="#support">Destek</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Kurumsal Android Geliştirme Platformu</h1>
+        <p>Profesyonel, güvenilir ve ölçeklenebilir mobil çözümler</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">15,000+</div>
+                <div class="stat-label">Tamamlanan Proje</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">Başarı Oranı</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Teknik Destek</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Template selection
+        function selectTemplate(template) {
+            // Remove selected class from all cards
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Add selected class to clicked card
+            event.currentTarget.classList.add('selected');
+        }
+
+        // Advanced options toggle
+        function toggleAdvanced() {
+            const options = document.getElementById('advancedOptions');
+            const icon = document.getElementById('advancedIcon');
+
+            if (options.classList.contains('open')) {
+                options.classList.remove('open');
+                icon.textContent = '▼';
+            } else {
+                options.classList.add('open');
+                icon.textContent = '▲';
+            }
+        }
+
+        // Generate random app
+        async function generateRandomApp() {
+            const templates = ['enterprise', 'ecommerce', 'fintech', 'healthcare', 'education'];
+            const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+
+            // Generate random app name and description
+            const appNames = {
+                'enterprise': ['MyCRM', 'EnterpriseManager', 'BusinessSuite'],
+                'ecommerce': ['ShopHub', 'MarketPlace', 'EStore'],
+                'fintech': ['PaySecure', 'FinanceApp', 'WalletPro'],
+                'healthcare': ['HealthTracker', 'MediCare', 'WellnessApp'],
+                'education': ['LearnHub', 'EduPro', 'StudyMate']
+            };
+
+            const descriptions = {
+                'enterprise': 'Kurumsal müşteri yönetimi ve iş süreçleri otomasyonu',
+                'ecommerce': 'Modern e-ticaret platformu ile satış ve müşteri deneyimi',
+                'fintech': 'Güvenli finansal işlemler ve hesap yönetimi',
+                'healthcare': 'Sağlık takibi ve tıbbi randevu yönetimi',
+                'education': 'Eğitim platformu ve öğrenme yönetimi sistemi'
+            };
+
+            const randomName = appNames[randomTemplate][Math.floor(Math.random() * appNames[randomTemplate].length)];
+            const randomDesc = descriptions[randomTemplate];
+
+            // Prepare data for API
+            const data = {
+                idea: randomDesc,
+                appName: randomName,
+                packageName: `com.example.${randomName.toLowerCase()}`,
+                language: 'kotlin',
+                minSdk: '28',
+                architecture: 'mvvm',
+                uiFramework: 'material3',
+                theme: 'auto',
+                features: ['database', 'network', 'di', 'testing']
+            };
+
+            // Show status panel
+            const statusPanel = document.getElementById('statusPanel');
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+
+            statusPanel.classList.add('show');
+            statusMessage.textContent = 'Rastgele proje oluşturuluyor...';
+            progressBar.style.width = '10%';
+            progressPercent.textContent = '10%';
+
+            try {
+                const response = await fetch('/api/generate-app', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const projectId = result.project_id;
+                    // Poll for status
+                    pollStatus(projectId);
+                } else {
+                    statusMessage.textContent = 'Hata: ' + result.error;
+                    statusMessage.style.color = '#dc2626';
+                }
+            } catch (error) {
+                statusMessage.textContent = 'Bağlantı hatası: ' + error.message;
+                statusMessage.style.color = '#dc2626';
+            }
+        }
+
+        // Form submission
+        document.getElementById('appForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {
+                idea: formData.get('idea'),
+                appName: formData.get('appName'),
+                packageName: formData.get('packageName'),
+                language: formData.get('language') || 'kotlin',
+                minSdk: formData.get('minSdk') || '28',
+                architecture: formData.get('architecture') || 'mvvm',
+                uiFramework: formData.get('uiFramework') || 'material3',
+                theme: formData.get('theme') || 'auto',
+                features: Array.from(formData.getAll('features'))
+            };
+
+            // Show status panel
+            const statusPanel = document.getElementById('statusPanel');
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            const stepsList = document.getElementById('stepsList');
+
+            statusPanel.classList.add('show');
+            statusMessage.textContent = 'Proje oluşturuluyor...';
+            progressBar.style.width = '10%';
+            progressPercent.textContent = '10%';
+
+            try {
+                const response = await fetch('/api/generate-app', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const projectId = result.project_id;
+
+                    // Poll for status
+                    pollStatus(projectId);
+                } else {
+                    statusMessage.textContent = 'Hata: ' + result.error;
+                    statusMessage.style.color = '#dc2626';
+                }
+            } catch (error) {
+                statusMessage.textContent = 'Bağlantı hatası: ' + error.message;
+                statusMessage.style.color = '#dc2626';
+            }
+        });
+
+        // Poll for project status
+        async function pollStatus(projectId) {
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            const stepsList = document.getElementById('stepsList');
+
+            const interval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/status/${projectId}`);
+                    const result = await response.json();
+
+                    statusMessage.textContent = result.current_step || 'İşleniyor...';
+                    progressBar.style.width = result.progress + '%';
+                    progressPercent.textContent = result.progress + '%';
+
+                    // Update steps
+                    if (result.steps_completed && result.total_steps) {
+                        const completedSteps = result.steps_completed;
+                        const totalSteps = result.total_steps;
+
+                        stepsList.innerHTML = '';
+                        for (let i = 1; i <= totalSteps; i++) {
+                            const stepItem = document.createElement('div');
+                            stepItem.className = 'step-item';
+
+                            if (i < completedSteps) {
+                                stepItem.classList.add('completed');
+                            } else if (i === completedSteps) {
+                                stepItem.classList.add('active');
+                            }
+
+                            stepItem.innerHTML = `
+                                <div class="step-icon">${i}</div>
+                                <div class="step-text">Adım ${i}</div>
+                            `;
+
+                            stepsList.appendChild(stepItem);
+                        }
+                    }
+
+                    if (result.status === 'completed') {
+                        clearInterval(interval);
+                        showSuccess(projectId);
+                    } else if (result.status === 'error') {
+                        clearInterval(interval);
+                        statusMessage.textContent = 'Hata: ' + result.error;
+                        statusMessage.style.color = '#dc2626';
+                    }
+                } catch (error) {
+                    clearInterval(interval);
+                    statusMessage.textContent = 'Durum kontrol hatası';
+                    statusMessage.style.color = '#dc2626';
+                }
+            }, 2000);
+        }
+
+        // Show success and download options
+        function showSuccess(projectId) {
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+
+            statusMessage.textContent = '✅ Proje başarıyla oluşturuldu!';
+            statusMessage.style.color = '#16a34a';
+            progressBar.style.width = '100%';
+            progressPercent.textContent = '100%';
+
+            // Show download section
+            setTimeout(() => {
+                const downloadSection = document.querySelector('.download-section');
+                const downloadBtn = document.querySelector('.download-buttons a');
+
+                if (downloadSection) {
+                    downloadSection.classList.add('show');
+                }
+
+                if (downloadBtn) {
+                    downloadBtn.href = `/download/${projectId}`;
+                }
+            }, 1000);
+        }
+    </script>
+
+    <div class="container">
+        <!-- Templates -->
+        <div class="card templates-section">
+            <h2>📋 Proje Şablonları</h2>
+            <div class="templates-grid">
+                <div class="template-card" onclick="selectTemplate('enterprise')">
+                    <div class="template-icon">🏢</div>
+                    <h3>Kurumsal Uygulama</h3>
+                    <p>CRM, ERP entegrasyonları</p>
+                </div>
+                <div class="template-card" onclick="selectTemplate('ecommerce')">
+                    <div class="template-icon">🛒</div>
+                    <h3>E-Ticaret</h3>
+                    <p>Tam özellikli satış platformu</p>
+                </div>
+                <div class="template-card" onclick="selectTemplate('fintech')">
+                    <div class="template-icon">💳</div>
+                    <h3>Fintech</h3>
+                    <p>Bankacılık ve ödeme sistemleri</p>
+                </div>
+                <div class="template-card" onclick="selectTemplate('healthcare')">
+                    <div class="template-icon">🏥</div>
+                    <h3>Sağlık</h3>
+                    <p>Hasta takip ve randevu</p>
+                </div>
+                <div class="template-card" onclick="selectTemplate('education')">
+                    <div class="template-icon">📚</div>
+                    <h3>Eğitim</h3>
+                    <p>LMS ve online kurslar</p>
+                </div>
+                <div class="template-card selected" onclick="selectTemplate('custom')">
+                    <div class="template-icon">⚙️</div>
+                    <h3>Özel Proje</h3>
+                    <p>İhtiyaca özel geliştirme</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Main Form -->
+            <div class="card">
+                <h2>🔧 Proje Yapılandırması</h2>
+
+                <div class="info-box">
+                    <div class="info-box-icon">ℹ️</div>
+                    <div class="info-box-content">
+                        <p>Tüm alanları eksiksiz doldurun. Sistem otomatik olarak en uygun mimaري ve bağımlılıkları yapılandıracaktır.</p>
+                    </div>
+                </div>
+                
+                <form id="appForm">
+                    <div class="form-group">
+                        <label>Proje Tanımı</label>
+                        <textarea id="idea" placeholder="Projenizin detaylı açıklaması... (Örnek: Müşteri ilişkileri yönetim sistemi. Müşteri kayıtları, iletişim geçmişi, görev takibi ve raporlama özellikleri içerecek.)" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Uygulama Adı</label>
+                        <input type="text" id="appName" placeholder="MyEnterpriseApp" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Paket Adı (Package Name)</label>
+                        <input type="text" id="packageName" placeholder="com.company.application" pattern="[a-z][a-z0-9_]*(\.[a-z0-9_]+)+" required>
+                        <small style="color: #64748b; font-size: 12px; margin-top: 4px; display: block;">Örnek: com.company.myapp</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Geliştirme Dili</label>
+                        <select id="language">
+                            <option value="kotlin">Kotlin - Modern ve Tip Güvenli</option>
+                            <option value="java">Java - Kurumsal Standart</option>
+                            <option value="compose">Jetpack Compose - Deklaratif UI</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Minimum SDK Seviyesi</label>
+                        <select id="minSdk">
+                            <option value="24">Android 7.0 (API 24) - %94 Kapsama</option>
+                            <option value="26">Android 8.0 (API 26) - %89 Kapsama</option>
+                            <option value="28" selected>Android 9.0 (API 28) - %84 Kapsama</option>
+                            <option value="30">Android 11 (API 30) - %68 Kapsama</option>
+                        </select>
+                    </div>
+
+                    <div class="advanced-toggle" onclick="toggleAdvanced()">
+                        <span>⚙️ Gelişmiş Yapılandırma</span>
+                        <span id="advancedIcon">▼</span>
+                    </div>
+
+                    <div id="advancedOptions" class="advanced-options">
+                        <div class="form-group">
+                            <label>Mimari Deseni</label>
+                            <select id="architecture">
+                                <option value="mvvm">MVVM - Model View ViewModel</option>
+                                <option value="mvi">MVI - Model View Intent</option>
+                                <option value="clean">Clean Architecture - Enterprise</option>
+                                <option value="simple">Basit Mimari - Prototip</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>UI Framework</label>
+                            <select id="uiFramework">
+                                <option value="material3">Material Design 3 - Latest</option>
+                                <option value="material2">Material Design 2 - Stable</option>
+                                <option value="compose">Jetpack Compose - Modern</option>
+                                <option value="custom">Custom Design System</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tema Desteği</label>
+                            <select id="theme">
+                                <option value="auto">Otomatik (Sistem Teması)</option>
+                                <option value="light">Açık Tema</option>
+                                <option value="dark">Koyu Tema</option>
+                                <option value="both">Çift Tema Desteği</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Modül ve Entegrasyonlar</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="database" checked>
+                                    <span>Veritabanı (Room)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="network" checked>
+                                    <span>Network (Retrofit)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="di" checked>
+                                    <span>Dependency Injection (Hilt)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="auth">
+                                    <span>Kimlik Doğrulama</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="notifications">
+                                    <span>Push Bildirimler (FCM)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="maps">
+                                    <span>Harita Servisleri</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="analytics">
+                                    <span>Analytics & Tracking</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="crashlytics">
+                                    <span>Crash Reporting</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="payment">
+                                    <span>Ödeme Sistemi</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="encryption">
+                                    <span>Veri Şifreleme</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="biometric">
+                                    <span>Biyometrik Güvenlik</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="features" value="testing" checked>
+                                    <span>Unit & UI Testing</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            🚀 Projeyi Oluştur
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="generateRandomApp()" style="flex: 1;">
+                            🎲 Rastgele Proje
+                        </button>
+                    </div>
+                </form>
+
+                <div id="statusPanel" class="status-panel">
+                    <div class="status-header">
+                        <div class="status-message" id="statusMessage">İşlem başlatılıyor...</div>
+                        <div class="progress-percent" id="progressPercent">0%</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="steps-list" id="stepsList">
+                        <div class="step-item">
+                            <div class

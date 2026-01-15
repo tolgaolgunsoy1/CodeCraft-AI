@@ -72,7 +72,7 @@ class Config:
     ALLOWED_EXTENSIONS = {'txt', 'md', 'doc', 'docx', 'pdf', 'json'}
 
     # Project Storage
-    PROJECT_STORAGE_PATH = settings.get('PROJECT_STORAGE_PATH', 'C:/android_projects')
+    PROJECT_STORAGE_PATH = settings.get('PROJECT_STORAGE_PATH', os.path.join(os.path.dirname(__file__), '..', 'generated_apps'))
     TEMP_STORAGE_HOURS = settings.get('TEMP_STORAGE_HOURS', 24)
     MAX_PROJECT_SIZE_MB = settings.get('MAX_PROJECT_SIZE_MB', 100)
 
