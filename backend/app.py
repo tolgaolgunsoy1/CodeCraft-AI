@@ -473,7 +473,7 @@ def generate_app():
         # Start generation in background
         thread = threading.Thread(
             target=generate_app_async,
-            args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path),
+            args=(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path, app_name),
             daemon=True
         )
         thread.start()
@@ -501,7 +501,7 @@ def generate_app():
         'estimated_completion': project_status[project_id]['estimated_completion']
     })
 
-def generate_app_async(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path):
+def generate_app_async(project_id, idea, language, theme, category, advanced_features, architecture, ui_framework, project_path, app_name):
     try:
         steps = [
             ('analyzing', 15, 'Fikir analiz ediliyor...', 3),

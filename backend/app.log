@@ -647,3 +647,37 @@ FileNotFoundError: [Errno 2] No such file or directory: 'C:/android_projects\\d4
 2026-01-16 00:51:17,756 - __main__ - INFO - Starting Android App Generator API Server
 2026-01-16 00:51:17,804 - werkzeug - WARNING -  * Debugger is active!
 2026-01-16 00:51:17,809 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:54:23,349 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:23] "[36mGET /?features=database&features=network&features=di&features=testing HTTP/1.1[0m" 304 -
+2026-01-16 00:54:25,882 - __main__ - INFO - Started generation for project 72b298bd-db97-4b11-a8d2-52a60991e96f by user None
+2026-01-16 00:54:25,890 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:25] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 00:54:27,909 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:27] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:30,230 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:30] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:31,900 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:31] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:34,227 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:34] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:35,912 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:35] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:38,226 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:38] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:39,897 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:39] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:42,221 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:42] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:43,916 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:43] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:46,230 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:46] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:47,909 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:47] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:50,215 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:50] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:51,912 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:51] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:54,209 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:54] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:54:54,887 - __main__ - ERROR - Error generating project 72b298bd-db97-4b11-a8d2-52a60991e96f: name 'app_name' is not defined
+Traceback (most recent call last):
+  File "c:\codecraftai\backend\app.py", line 535, in generate_app_async
+    result = generator.generate_from_idea(idea, language, architecture, ui_framework, project_path, app_name)
+                                                                                                    ^^^^^^^^
+NameError: name 'app_name' is not defined
+2026-01-16 00:54:55,900 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 00:54:55] "GET /status/72b298bd-db97-4b11-a8d2-52a60991e96f HTTP/1.1" 200 -
+2026-01-16 00:55:24,795 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:55:25,275 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:55:27,814 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:55:27,855 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:55:27,860 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 00:55:39,033 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 00:55:39,428 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 00:55:41,975 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 00:55:42,010 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 00:55:42,017 - werkzeug - INFO -  * Debugger PIN: 223-406-450
