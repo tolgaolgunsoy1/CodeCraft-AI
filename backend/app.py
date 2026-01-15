@@ -825,8 +825,15 @@ def get_ai_suggestions():
 @app.route('/download/<project_id>')
 @handle_errors
 def download_project(project_id):
-    project_path = os.path.join(config.PROJECT_STORAGE_PATH, project_id)
-    
+    # Get the correct folder name from project status
+    if project_id in project_status:
+        result = project_status[project_id].get('result', {})
+        download_id = result.get('downloadId', project_id)
+        project_path = os.path.join(config.PROJECT_STORAGE_PATH, download_id)
+    else:
+        # Fallback to project_id if status not found
+        project_path = os.path.join(config.PROJECT_STORAGE_PATH, project_id)
+
     if not os.path.exists(project_path):
         return jsonify({'success': False, 'error': 'Proje bulunamadı'}), 404
     
@@ -852,11 +859,22 @@ def download_project(project_id):
                 arc_name = os.path.relpath(file_path, project_path)
                 zipf.write(file_path, arc_name)
     
+    # Get app name for download filename
+    app_name = "App"
+    if project_id in project_status:
+        result = project_status[project_id].get('result', {})
+        app_name = result.get('appName', 'App')
+
+    # Sanitize app name for filename
+    safe_filename = ''.join(c for c in app_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+    if not safe_filename:
+        safe_filename = "App"
+
     logger.info(f"Downloaded project {project_id}")
     return send_file(
         zip_path,
         as_attachment=True,
-        download_name=f"{project_id}.zip",
+        download_name=f"{safe_filename}.zip",
         mimetype='application/zip'
     )
 

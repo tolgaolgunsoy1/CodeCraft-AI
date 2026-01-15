@@ -759,3 +759,32 @@ NameError: name 'app_name' is not defined
 2026-01-16 01:12:40,568 - __main__ - INFO - Starting Android App Generator API Server
 2026-01-16 01:12:40,607 - werkzeug - WARNING -  * Debugger is active!
 2026-01-16 01:12:40,611 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 01:15:35,514 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:35] "[36mGET /?features=database&features=network&features=di&features=testing HTTP/1.1[0m" 304 -
+2026-01-16 01:15:37,097 - __main__ - INFO - Started generation for project 49bc77d1-750e-4374-8a7a-cde46e00c53c by user None
+2026-01-16 01:15:37,115 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:37] "POST /api/generate-app HTTP/1.1" 200 -
+2026-01-16 01:15:39,145 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:39] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:41,447 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:41] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:43,125 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:43] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:45,438 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:45] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:47,132 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:47] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:49,469 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:49] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:51,133 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:51] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:53,453 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:53] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:55,131 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:55] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:57,481 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:57] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:15:59,136 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:15:59] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:16:01,441 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:16:01] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:16:03,137 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:16:03] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:16:05,455 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:16:05] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:16:06,321 - __main__ - INFO - Completed generation for project 49bc77d1-750e-4374-8a7a-cde46e00c53c in 29.22s
+2026-01-16 01:16:07,140 - werkzeug - INFO - 127.0.0.1 - - [16/Jan/2026 01:16:07] "GET /status/49bc77d1-750e-4374-8a7a-cde46e00c53c HTTP/1.1" 200 -
+2026-01-16 01:18:26,927 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 01:18:27,371 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 01:18:31,026 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 01:18:31,070 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 01:18:31,074 - werkzeug - INFO -  * Debugger PIN: 223-406-450
+2026-01-16 01:18:43,470 - werkzeug - INFO -  * Detected change in 'c:\\codecraftai\\backend\\app.py', reloading
+2026-01-16 01:18:43,824 - werkzeug - INFO -  * Restarting with stat
+2026-01-16 01:18:47,298 - __main__ - INFO - Starting Android App Generator API Server
+2026-01-16 01:18:47,339 - werkzeug - WARNING -  * Debugger is active!
+2026-01-16 01:18:47,344 - werkzeug - INFO -  * Debugger PIN: 223-406-450
