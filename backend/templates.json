@@ -1,0 +1,302 @@
+{
+  "templates": [
+    {
+      "id": "social_media",
+      "name": "Sosyal Medya",
+      "description": "Profil, paylaşım, mesajlaşma özellikleri ile tam özellikli sosyal platform",
+      "icon": "fas fa-users",
+      "color": "#3b82f6",
+      "features": [
+        "Kullanıcı Profili & Ayarları",
+        "Post Paylaşımı & Yorumlar",
+        "Gerçek Zamanlı Mesajlaşma",
+        "Takip Sistemi & Bildirimler",
+        "Hikaye Özelliği",
+        "Arama & Keşfet"
+      ],
+      "popularity": 95,
+      "difficulty": "hard",
+      "estimated_time": "45-60 dakika",
+      "tech_stack": ["Firebase", "Retrofit", "Glide", "Room DB"],
+      "structure": {
+        "activities": [
+          "SplashActivity",
+          "LoginActivity",
+          "RegisterActivity",
+          "MainActivity",
+          "ProfileActivity",
+          "PostActivity",
+          "ChatActivity",
+          "SearchActivity",
+          "SettingsActivity"
+        ],
+        "fragments": [
+          "HomeFragment",
+          "ProfileFragment",
+          "MessagesFragment",
+          "ExploreFragment"
+        ],
+        "services": [
+          "FirebaseMessagingService",
+          "NotificationService"
+        ],
+        "models": [
+          "User",
+          "Post",
+          "Comment",
+          "Message",
+          "Notification"
+        ]
+      }
+    },
+    {
+      "id": "ecommerce",
+      "name": "E-Ticaret",
+      "description": "Ürün katalogu, sepet ve ödeme sistemi ile kapsamlı alışveriş deneyimi",
+      "icon": "fas fa-shopping-cart",
+      "color": "#10b981",
+      "features": [
+        "Ürün Katalogu & Filtreleme",
+        "Sepet Yönetimi",
+        "Güvenli Ödeme Entegrasyonu",
+        "Sipariş Takibi",
+        "Favori Ürünler",
+        "İndirim & Kupon Sistemi"
+      ],
+      "popularity": 88,
+      "difficulty": "hard",
+      "estimated_time": "40-55 dakika",
+      "tech_stack": ["Stripe API", "Room DB", "Retrofit", "WorkManager"],
+      "structure": {
+        "activities": [
+          "SplashActivity",
+          "LoginActivity",
+          "MainActivity",
+          "ProductListActivity",
+          "ProductDetailActivity",
+          "CartActivity",
+          "CheckoutActivity",
+          "OrderHistoryActivity",
+          "ProfileActivity"
+        ],
+        "fragments": [
+          "HomeFragment",
+          "CategoriesFragment",
+          "CartFragment",
+          "ProfileFragment"
+        ],
+        "services": [
+          "PaymentService",
+          "NotificationService"
+        ],
+        "models": [
+          "Product",
+          "Category",
+          "CartItem",
+          "Order",
+          "User"
+        ]
+      }
+    },
+    {
+      "id": "health_fitness",
+      "name": "Sağlık & Fitness",
+      "description": "Sağlık takibi, egzersiz planları ve ilerleme analizi",
+      "icon": "fas fa-heartbeat",
+      "color": "#ef4444",
+      "features": [
+        "Adım Sayacı & GPS Koşu",
+        "Kalori & Besin Takibi",
+        "Egzersiz Planları & Videolar",
+        "İlerleme Grafikleri",
+        "Su Takibi & Hatırlatıcılar",
+        "Vücut Ölçümleri"
+      ],
+      "popularity": 82,
+      "difficulty": "medium",
+      "estimated_time": "30-40 dakika",
+      "tech_stack": ["Sensors API", "MPAndroidChart", "Room DB", "Notifications"],
+      "structure": {
+        "activities": [
+          "SplashActivity",
+          "MainActivity",
+          "WorkoutActivity",
+          "ProgressActivity",
+          "NutritionActivity",
+          "SettingsActivity"
+        ],
+        "fragments": [
+          "DashboardFragment",
+          "WorkoutsFragment",
+          "ProgressFragment",
+          "NutritionFragment"
+        ],
+        "services": [
+          "StepCounterService",
+          "NotificationService",
+          "LocationService"
+        ],
+        "models": [
+          "Workout",
+          "Exercise",
+          "Progress",
+          "Nutrition",
+          "User"
+        ]
+      }
+    },
+    {
+      "id": "productivity",
+      "name": "Verimlilik",
+      "description": "Görev yönetimi, notlar ve akıllı hatırlatıcılar",
+      "icon": "fas fa-tasks",
+      "color": "#f59e0b",
+      "features": [
+        "Görev Yönetimi & Kategoriler",
+        "Zengin Not Editörü",
+        "Akıllı Hatırlatıcılar",
+        "Takvim Entegrasyonu",
+        "Pomodoro Zamanlayıcı",
+        "Bulut Senkronizasyonu"
+      ],
+      "popularity": 76,
+      "difficulty": "medium",
+      "estimated_time": "25-35 dakika",
+      "tech_stack": ["Room DB", "WorkManager", "Calendar API", "Firebase Sync"],
+      "structure": {
+        "activities": [
+          "SplashActivity",
+          "MainActivity",
+          "TaskListActivity",
+          "TaskDetailActivity",
+          "NotesActivity",
+          "CalendarActivity",
+          "SettingsActivity"
+        ],
+        "fragments": [
+          "TasksFragment",
+          "NotesFragment",
+          "CalendarFragment",
+          "SettingsFragment"
+        ],
+        "services": [
+          "ReminderService",
+          "SyncService"
+        ],
+        "models": [
+          "Task",
+          "Note",
+          "Category",
+          "Reminder",
+          "User"
+        ]
+      }
+    },
+    {
+      "id": "gaming",
+      "name": "Oyun",
+      "description": "Etkileşimli oyun mekaniği, liderlik tablosu ve başarımlar",
+      "icon": "fas fa-gamepad",
+      "color": "#8b5cf6",
+      "features": [
+        "Skor Sistemi & Leaderboard",
+        "Seviye Sistemi & Progression",
+        "Başarımlar & Rozetler",
+        "Çoklu Oyuncu Desteği",
+        "Günlük Ödüller",
+        "Özelleştirilebilir Avatarlar"
+      ],
+      "popularity": 71,
+      "difficulty": "hard",
+      "estimated_time": "35-50 dakika",
+      "tech_stack": ["LibGDX/Custom Engine", "Firebase Realtime DB", "Play Games"],
+      "structure": {
+        "activities": [
+          "SplashActivity",
+          "MainActivity",
+          "GameActivity",
+          "LeaderboardActivity",
+          "AchievementsActivity",
+          "ProfileActivity"
+        ],
+        "fragments": [
+          "GameFragment",
+          "LeaderboardFragment",
+          "AchievementsFragment"
+        ],
+        "services": [
+          "GameService",
+          "MultiplayerService"
+        ],
+        "models": [
+          "Player",
+          "GameSession",
+          "Achievement",
+          "Score"
+        ]
+      }
+    },
+    {
+      "id": "education",
+      "name": "Eğitim",
+      "description": "İnteraktif dersler, quizler ve ilerleme takibi",
+      "icon": "fas fa-graduation-cap",
+      "color": "#06b6d4",
+      "features": [
+        "Video Dersler",
+        "İnteraktif Quizler",
+        "İlerleme Takibi",
+        "Sertifika Sistemi",
+        "Çevrimdışı Mod",
+        "Öğretmen-Öğrenci Paneli"
+      ],
+      "popularity": 68,
+      "difficulty": "medium",
+      "estimated_time": "30-45 dakika",
+      "tech_stack": ["ExoPlayer", "Room DB", "Firebase", "PDF Renderer"],
+      "structure": {
+        "activities": [
+          "SplashActivity",
+          "LoginActivity",
+          "MainActivity",
+          "CourseActivity",
+          "QuizActivity",
+          "ProgressActivity",
+          "CertificateActivity"
+        ],
+        "fragments": [
+          "CoursesFragment",
+          "ProgressFragment",
+          "ProfileFragment"
+        ],
+        "services": [
+          "VideoService",
+          "QuizService"
+        ],
+        "models": [
+          "Course",
+          "Lesson",
+          "Quiz",
+          "Progress",
+          "Certificate"
+        ]
+      }
+    }
+  ],
+  "decision_rules": {
+    "keywords": {
+      "social_media": ["sosyal", "medya", "profil", "paylaş", "mesaj", "takip", "hikaye", "yorum"],
+      "ecommerce": ["alışveriş", "ürün", "satış", "sepet", "ödeme", "sipariş", "katalog", "ticaret"],
+      "health_fitness": ["sağlık", "fitness", "egzersiz", "kalori", "adım", "beslenme", "spor", "antrenman"],
+      "productivity": ["görev", "not", "hatırlatıcı", "takvim", "verimlilik", "plan", "yönetim"],
+      "gaming": ["oyun", "skor", "seviye", "başarım", "leaderboard", "çoklu oyuncu", "oyuncu"],
+      "education": ["eğitim", "ders", "quiz", "sertifika", "öğrenme", "kurs", "öğrenci"]
+    },
+    "complexity_weights": {
+      "low": 1,
+      "medium": 2,
+      "high": 3
+    },
+    "feature_matching_threshold": 0.6
+  }
+}
