@@ -35,22 +35,25 @@ def generate_app():
     import sys
     import os
     sys.path.append(os.path.dirname(__file__))
-    from android_generator import AndroidProjectGenerator
+    from android_generator import AndroidAppGenerator
     
     try:
         # Create real Android project
-        generator = AndroidProjectGenerator()
+        generator = AndroidAppGenerator()
         project_id = str(uuid.uuid4())
         app_name = idea.split()[0].capitalize() + 'App'
         
         # Generate real project
-        project_path = generator.generate_project(
-            app_name=app_name,
-            package_name=f"com.example.{app_name.lower()}",
+        result = generator.generate_from_idea(
             idea=idea,
+            language='java',
             architecture=architecture,
-            ui_framework=ui_framework
+            ui_framework=ui_framework,
+            project_path=None,
+            app_name=app_name
         )
+        
+        project_path = result['project_path']
         
         # Store project info
         project_storage[project_id] = {

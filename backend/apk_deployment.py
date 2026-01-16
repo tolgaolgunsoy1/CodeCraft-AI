@@ -32,84 +32,268 @@ class APKDeploymentSystem:
     def build_apk_cloud(project_path: str) -> dict:
         """Build APK on server (cloud build)"""
         try:
-            # Run Gradle build
+            # Check if gradlew exists
+            gradlew_path = os.path.join(project_path, 'gradlew')
+            if not os.path.exists(gradlew_path):
+                return {
+                    'success': False,
+                    'error': 'Gradle wrapper not found. Project may not be properly initialized.'
+                }
+
+            # Check if app/build.gradle exists
+            build_gradle_path = os.path.join(project_path, 'app', 'build.gradle')
+            if not os.path.exists(build_gradle_path):
+                return {
+                    'success': False,
+                    'error': 'build.gradle not found. Project structure is incomplete.'
+                }
+
+            # Make gradlew executable (Linux/Mac)
+            if os.name != 'nt':  # Not Windows
+                os.chmod(gradlew_path, 0o755)
+
+            # Run Gradle build with better error handling
+            print(f"Building APK in: {project_path}")
             result = subprocess.run(
-                ['./gradlew', 'assembleDebug'],
+                ['./gradlew', 'assembleDebug', '--no-daemon', '--parallel'],
                 cwd=project_path,
                 capture_output=True,
                 text=True,
-                timeout=300
+                timeout=600  # Increased timeout
             )
-            
+
             if result.returncode == 0:
                 apk_path = os.path.join(
-                    project_path, 
+                    project_path,
                     'app/build/outputs/apk/debug/app-debug.apk'
                 )
-                
+
                 if os.path.exists(apk_path):
+                    size_mb = os.path.getsize(apk_path) / (1024 * 1024)
                     return {
                         'success': True,
                         'apk_path': apk_path,
-                        'size': os.path.getsize(apk_path) / (1024 * 1024),  # MB
-                        'message': 'APK built successfully'
+                        'size': round(size_mb, 2),
+                        'message': f'APK built successfully ({round(size_mb, 2)} MB)'
                     }
-            
+                else:
+                    return {
+                        'success': False,
+                        'error': 'APK file not found after successful build. Check build configuration.'
+                    }
+
+            # Analyze common Gradle errors
+            error_msg = APKDeploymentSystem._analyze_gradle_error(result.stderr, result.stdout)
             return {
                 'success': False,
-                'error': result.stderr
+                'error': error_msg,
+                'details': {
+                    'return_code': result.returncode,
+                    'stderr': result.stderr[-1000:],  # Last 1000 chars
+                    'stdout': result.stdout[-1000:]   # Last 1000 chars
+                }
             }
-            
+
+        except subprocess.TimeoutExpired:
+            return {
+                'success': False,
+                'error': 'APK build timed out. The build process took too long (10+ minutes). Try building manually.'
+            }
+        except FileNotFoundError:
+            return {
+                'success': False,
+                'error': 'Required build tools not found. Ensure Java JDK and Android SDK are properly installed.'
+            }
         except Exception as e:
             return {
                 'success': False,
-                'error': str(e)
+                'error': f'Unexpected error during APK build: {str(e)}'
             }
-    
+
+    @staticmethod
+    def _analyze_gradle_error(stderr: str, stdout: str) -> str:
+        """Analyze Gradle build errors and provide user-friendly messages"""
+        error_text = (stderr + stdout).lower()
+
+        # Common error patterns
+        if 'java_home' in error_text:
+            return 'Java JDK not found or JAVA_HOME not set. Please install Java JDK 11+ and set JAVA_HOME.'
+
+        if 'android_home' in error_text or 'android sdk' in error_text:
+            return 'Android SDK not found. Please install Android SDK and set ANDROID_HOME.'
+
+        if 'gradle wrapper' in error_text or 'gradlew' in error_text:
+            return 'Gradle wrapper issue. Try running gradlew.bat manually to see detailed errors.'
+
+        if 'compile' in error_text and 'error' in error_text:
+            return 'Compilation error. Check your Java/Kotlin code for syntax errors.'
+
+        if 'manifest' in error_text:
+            return 'AndroidManifest.xml error. Check manifest file for invalid configurations.'
+
+        if 'resources' in error_text and 'error' in error_text:
+            return 'Resource error. Check drawable/layout/values files for issues.'
+
+        if 'dependency' in error_text and 'not found' in error_text:
+            return 'Dependency resolution failed. Check internet connection and repository access.'
+
+        if 'license' in error_text or 'accept' in error_text:
+            return 'Android SDK license not accepted. Run "sdkmanager --licenses" to accept licenses.'
+
+        if 'permission denied' in error_text or 'access denied' in error_text:
+            return 'Permission error. Ensure the project directory has write permissions.'
+
+        if 'out of memory' in error_text or 'heap space' in error_text:
+            return 'Out of memory. Try increasing JVM heap size or closing other applications.'
+
+        if 'timeout' in error_text:
+            return 'Build timeout. The build process is taking too long. Try building in smaller steps.'
+
+        # Generic fallback
+        if stderr.strip():
+            # Return first meaningful error line
+            lines = stderr.strip().split('\n')
+            for line in lines[-10:]:  # Last 10 lines
+                if line.strip() and not line.startswith('>') and len(line) > 10:
+                    return f'Build failed: {line.strip()}'
+
+        return 'APK build failed. Check the detailed error logs above for more information.'
+
+    @staticmethod
+    def _analyze_adb_error(stderr: str, stdout: str) -> str:
+        """Analyze ADB installation errors and provide user-friendly messages"""
+        error_text = (stderr + stdout).lower()
+
+        if 'device offline' in error_text or 'device not found' in error_text:
+            return 'Device went offline. Reconnect USB cable and ensure USB debugging is enabled.'
+
+        if 'insufficient storage' in error_text or 'no space' in error_text:
+            return 'Insufficient storage on device. Free up space and try again.'
+
+        if 'install_failed_version_downgrade' in error_text:
+            return 'Version downgrade not allowed. Uninstall the existing app first or use a higher version code.'
+
+        if 'install_failed_update_incompatible' in error_text:
+            return 'Update incompatible. Uninstall the existing app and try again.'
+
+        if 'install_failed_missing_shared_library' in error_text:
+            return 'Missing shared library. The app requires additional libraries that are not available.'
+
+        if 'install_failed_cpu_abi_incompatible' in error_text:
+            return 'CPU ABI incompatible. The APK is not compatible with your device architecture.'
+
+        if 'install_failed_invalid_apk' in error_text:
+            return 'Invalid APK file. The APK may be corrupted. Try rebuilding.'
+
+        if 'install_failed_older_sdk' in error_text:
+            return 'Device runs older Android version. Update your device or lower minSdkVersion.'
+
+        if 'install_failed_newer_sdk' in error_text:
+            return 'APK requires newer Android version. Update your device.'
+
+        if 'security' in error_text or 'blocked' in error_text:
+            return 'Installation blocked by security policy. Enable "Install unknown apps" for this source.'
+
+        if 'timeout' in error_text:
+            return 'Installation timed out. Device may be slow or unresponsive.'
+
+        # Return the actual error if we can't analyze it
+        if stderr.strip():
+            lines = stderr.strip().split('\n')
+            for line in lines:
+                if 'failure' in line.lower() or 'error' in line.lower():
+                    return f'Installation failed: {line.strip()}'
+
+        return 'APK installation failed. Check device storage, USB connection, and try again.'
+
     @staticmethod
     def send_to_phone_via_adb(apk_path: str) -> dict:
         """Send APK to phone via ADB (USB debugging)"""
         try:
-            # Check if device connected
-            check = subprocess.run(
-                ['adb', 'devices'],
-                capture_output=True,
-                text=True
-            )
-            
-            if 'device' not in check.stdout:
+            # Check if APK exists
+            if not os.path.exists(apk_path):
                 return {
                     'success': False,
-                    'error': 'No device connected. Enable USB debugging.'
+                    'error': 'APK file not found. Build the APK first.'
                 }
-            
-            # Install APK
+
+            # Check ADB availability
+            try:
+                adb_version = subprocess.run(
+                    ['adb', 'version'],
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                if adb_version.returncode != 0:
+                    raise FileNotFoundError()
+            except (FileNotFoundError, subprocess.TimeoutExpired):
+                return {
+                    'success': False,
+                    'error': 'ADB not found. Install Android SDK Platform Tools from: https://developer.android.com/studio/releases/platform-tools'
+                }
+
+            # Check if device connected
+            devices_check = subprocess.run(
+                ['adb', 'devices'],
+                capture_output=True,
+                text=True,
+                timeout=10
+            )
+
+            connected_devices = [line for line in devices_check.stdout.split('\n')
+                               if line.strip() and not line.startswith('List')]
+
+            if not connected_devices:
+                return {
+                    'success': False,
+                    'error': 'No Android device connected. Enable USB debugging on your phone and connect via USB.'
+                }
+
+            # Get device info
+            device_info = subprocess.run(
+                ['adb', 'shell', 'getprop', 'ro.product.model'],
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+
+            device_name = device_info.stdout.strip() if device_info.returncode == 0 else "Unknown Device"
+
+            # Install APK with progress
+            print(f"Installing APK on device: {device_name}")
             result = subprocess.run(
                 ['adb', 'install', '-r', apk_path],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=120  # 2 minutes timeout for installation
             )
-            
+
             if result.returncode == 0:
+                apk_size = os.path.getsize(apk_path) / (1024 * 1024)
                 return {
                     'success': True,
-                    'message': 'APK installed on phone successfully!'
+                    'message': f'APK installed successfully on {device_name}! ({round(apk_size, 2)} MB)',
+                    'device': device_name
                 }
-            
+
+            # Analyze ADB installation errors
+            error_msg = APKDeploymentSystem._analyze_adb_error(result.stderr, result.stdout)
             return {
                 'success': False,
-                'error': result.stderr
+                'error': error_msg,
+                'device': device_name
             }
-            
-        except FileNotFoundError:
+
+        except subprocess.TimeoutExpired:
             return {
                 'success': False,
-                'error': 'ADB not found. Install Android SDK Platform Tools.'
+                'error': 'ADB command timed out. Device may be unresponsive.'
             }
         except Exception as e:
             return {
                 'success': False,
-                'error': str(e)
+                'error': f'Unexpected error during ADB installation: {str(e)}'
             }
     
     @staticmethod

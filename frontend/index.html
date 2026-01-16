@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeCraft Pro - Kurumsal Android Geliştirme Platformu</title>
+    <title>CodeCraft AI - Kurumsal Android Geliştirme Platformu</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            background: #f8fafc;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #f3e8ff 100%);
             color: #1e293b;
             min-height: 100vh;
         }
@@ -57,6 +57,8 @@
             justify-content: center;
             color: white;
             font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .nav-links {
@@ -86,18 +88,40 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #8b5cf6 100%);
             color: white;
-            padding: 80px 40px;
+            padding: 100px 40px;
             text-align: center;
             margin: -40px -40px 40px -40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+        
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
         .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
         }
 
         .hero p {
@@ -142,10 +166,16 @@
         /* Card */
         .card {
             background: white;
-            border-radius: 8px;
+            border-radius: 16px;
             padding: 40px;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.15);
         }
 
         .card h2 {
@@ -289,14 +319,31 @@
 
         .btn-primary {
             width: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
             color: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+            transform: translateY(-2px);
         }
 
         .btn-primary:active {
@@ -356,10 +403,17 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            background-size: 200% 100%;
             border-radius: 4px;
             width: 0%;
             transition: width 0.3s ease-out;
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .steps-list {
@@ -496,22 +550,46 @@
 
         .template-card {
             background: white;
-            border-radius: 6px;
+            border-radius: 12px;
             padding: 24px;
             border: 2px solid #e2e8f0;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
         .template-card:hover {
             border-color: #3b82f6;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
+            transform: translateY(-4px);
+        }
+        
+        .template-card:hover::before {
+            transform: scaleX(1);
         }
 
         .template-card.selected {
             border-color: #3b82f6;
-            background: #eff6ff;
+            background: linear-gradient(135deg, #eff6ff 0%, #f3e8ff 100%);
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+        }
+        
+        .template-card.selected::before {
+            transform: scaleX(1);
         }
 
         .template-icon {
@@ -700,8 +778,18 @@
     <header>
         <div class="header-content">
             <div class="logo">
-                <div class="logo-icon">⚡</div>
-                <span>CodeCraft Pro</span>
+                <svg class="logo-icon" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="36" height="36" rx="6" fill="url(#logoGrad)"/>
+                    <path d="M10 18 L18 10 L26 18 L18 26 Z" fill="white" opacity="0.9"/>
+                    <circle cx="18" cy="18" r="3" fill="white"/>
+                </svg>
+                <span>CodeCraft AI</span>
             </div>
             <nav class="nav-links">
                 <a href="#features">Özellikler</a>
@@ -713,8 +801,8 @@
     </header>
 
     <div class="hero">
-        <h1>Kurumsal Android Geliştirme Platformu</h1>
-        <p>Profesyonel, güvenilir ve ölçeklenebilir mobil çözümler</p>
+        <h1>Fikirlerinizi Android uygulamasına dönüştürün</h1>
+        <p>Gemini AI destekli platform ile sadece sözlerinizi kullanarak dakikalar içinde profesyonel uygulamalar oluşturun</p>
         
         <div class="stats">
             <div class="stat-item">
@@ -872,8 +960,11 @@
 
                 const result = await response.json();
 
+                console.log('Generate response:', result);
+
                 if (result.success) {
                     const projectId = result.project_id;
+                    console.log('Project ID:', projectId);
 
                     // Poll for status
                     pollStatus(projectId);
@@ -897,6 +988,17 @@
             const interval = setInterval(async () => {
                 try {
                     const response = await fetch(`/status/${projectId}`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                    
+                    const contentType = response.headers.get('content-type');
+                    if (!contentType || !contentType.includes('application/json')) {
+                        const text = await response.text();
+                        throw new Error(`Expected JSON but got: ${contentType}. Response: ${text.substring(0, 200)}`);
+                    }
+                    
                     const result = await response.json();
 
                     statusMessage.textContent = result.current_step || 'İşleniyor...';
@@ -938,8 +1040,9 @@
                     }
                 } catch (error) {
                     clearInterval(interval);
-                    statusMessage.textContent = 'Durum kontrol hatası';
+                    statusMessage.textContent = 'Durum kontrol hatası: ' + error.message;
                     statusMessage.style.color = '#dc2626';
+                    console.error('Status check error:', error);
                 }
             }, 2000);
         }
@@ -959,6 +1062,7 @@
             setTimeout(() => {
                 const downloadSection = document.querySelector('.download-section');
                 const downloadBtn = document.querySelector('.download-buttons a');
+                const apkBtn = document.getElementById('apkDownloadBtn');
 
                 if (downloadSection) {
                     downloadSection.classList.add('show');
@@ -967,6 +1071,16 @@
                 if (downloadBtn) {
                     downloadBtn.href = `/download/${projectId}`;
                 }
+                
+                // Check if APK is ready and show APK download button
+                fetch(`/status/${projectId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.result && data.result.apkReady && apkBtn) {
+                            apkBtn.style.display = 'inline-block';
+                            apkBtn.href = `/download-apk/${projectId}`;
+                        }
+                    });
             }, 1000);
         }
     </script>
@@ -1024,23 +1138,23 @@
                 <form id="appForm">
                     <div class="form-group">
                         <label>Proje Tanımı</label>
-                        <textarea id="idea" placeholder="Projenizin detaylı açıklaması... (Örnek: Müşteri ilişkileri yönetim sistemi. Müşteri kayıtları, iletişim geçmişi, görev takibi ve raporlama özellikleri içerecek.)" required></textarea>
+                        <textarea name="idea" id="idea" placeholder="Projenizin detaylı açıklaması... (Örnek: Müşteri ilişkileri yönetim sistemi. Müşteri kayıtları, iletişim geçmişi, görev takibi ve raporlama özellikleri içerecek.)" required></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Uygulama Adı</label>
-                        <input type="text" id="appName" placeholder="MyEnterpriseApp" required>
+                        <input type="text" name="appName" id="appName" placeholder="MyEnterpriseApp" required>
                     </div>
 
                     <div class="form-group">
                         <label>Paket Adı (Package Name)</label>
-                        <input type="text" id="packageName" placeholder="com.company.application" pattern="[a-z][a-z0-9_]*(\.[a-z0-9_]+)+" required>
+                        <input type="text" name="packageName" id="packageName" placeholder="com.company.application" pattern="[a-z][a-z0-9_]*(\.[a-z0-9_]+)+" required>
                         <small style="color: #64748b; font-size: 12px; margin-top: 4px; display: block;">Örnek: com.company.myapp</small>
                     </div>
 
                     <div class="form-group">
                         <label>Geliştirme Dili</label>
-                        <select id="language">
+                        <select name="language" id="language">
                             <option value="kotlin">Kotlin - Modern ve Tip Güvenli</option>
                             <option value="java">Java - Kurumsal Standart</option>
                             <option value="compose">Jetpack Compose - Deklaratif UI</option>
@@ -1049,7 +1163,7 @@
 
                     <div class="form-group">
                         <label>Minimum SDK Seviyesi</label>
-                        <select id="minSdk">
+                        <select name="minSdk" id="minSdk">
                             <option value="24">Android 7.0 (API 24) - %94 Kapsama</option>
                             <option value="26">Android 8.0 (API 26) - %89 Kapsama</option>
                             <option value="28" selected>Android 9.0 (API 28) - %84 Kapsama</option>
@@ -1065,7 +1179,7 @@
                     <div id="advancedOptions" class="advanced-options">
                         <div class="form-group">
                             <label>Mimari Deseni</label>
-                            <select id="architecture">
+                            <select name="architecture" id="architecture">
                                 <option value="mvvm">MVVM - Model View ViewModel</option>
                                 <option value="mvi">MVI - Model View Intent</option>
                                 <option value="clean">Clean Architecture - Enterprise</option>
@@ -1075,7 +1189,7 @@
 
                         <div class="form-group">
                             <label>UI Framework</label>
-                            <select id="uiFramework">
+                            <select name="uiFramework" id="uiFramework">
                                 <option value="material3">Material Design 3 - Latest</option>
                                 <option value="material2">Material Design 2 - Stable</option>
                                 <option value="compose">Jetpack Compose - Modern</option>
@@ -1085,7 +1199,7 @@
 
                         <div class="form-group">
                             <label>Tema Desteği</label>
-                            <select id="theme">
+                            <select name="theme" id="theme">
                                 <option value="auto">Otomatik (Sistem Teması)</option>
                                 <option value="light">Açık Tema</option>
                                 <option value="dark">Koyu Tema</option>
@@ -1169,3 +1283,124 @@
                     <div class="steps-list" id="stepsList">
                         <div class="step-item">
                             <div class
+="step-icon">1</div>
+                            <div class="step-text">Adım 1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="download-section">
+                    <h3>✅ Proje Hazır!</h3>
+                    <div class="download-buttons">
+                        <a href="#" class="btn btn-primary" style="width: auto;">📦 ZIP İndir</a>
+                        <a href="#" id="apkDownloadBtn" class="btn btn-secondary" style="width: auto; display: none;">📱 APK İndir</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Panel -->
+            <div class="features-panel">
+                <div class="card">
+                    <h2>✨ Platform Özellikleri</h2>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">🏗️</div>
+                        <div class="feature-content">
+                            <h3>Modern Mimari</h3>
+                            <p>MVVM, Clean Architecture, Dependency Injection</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h3>Güvenlik</h3>
+                            <p>Şifreleme, Biyometrik, Güvenli Depolama</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h3>Performans</h3>
+                            <p>Optimize edilmiş kod, Lazy loading, Caching</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🧪</div>
+                        <div class="feature-content">
+                            <h3>Test Kapsamı</h3>
+                            <p>Unit, Integration, UI testleri dahil</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-content">
+                            <h3>APK Otomatik</h3>
+                            <p>Derlenmiş APK dosyası hazır!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+    <!-- Footer -->
+    <footer style="background: #0f172a; color: #94a3b8; padding: 64px 40px; margin-top: 80px;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 48px; margin-bottom: 48px;">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px;">
+                            <defs>
+                                <linearGradient id="logoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect width="36" height="36" rx="6" fill="url(#logoGrad2)"/>
+                            <path d="M10 18 L18 10 L26 18 L18 26 Z" fill="white" opacity="0.9"/>
+                            <circle cx="18" cy="18" r="3" fill="white"/>
+                        </svg>
+                        <span style="font-size: 20px; font-weight: 700; color: white;">CodeCraft AI</span>
+                    </div>
+                    <p style="font-size: 14px; line-height: 1.6;">AI destekli Android uygulama geliştirme platformu</p>
+                </div>
+
+                <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 16px; font-size: 16px;">Product</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="#features" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Özellikler</a></li>
+                        <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Fiyatlandırma</a></li>
+                        <li><a href="#templates" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Şablonlar</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 16px; font-size: 16px;">Resources</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Dokümantasyon</a></li>
+                        <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Blog</a></li>
+                        <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Discord</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="color: white; font-weight: 600; margin-bottom: 16px; font-size: 16px;">Company</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Hakkımızda</a></li>
+                        <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">İletişim</a></li>
+                        <li><a href="#" style="color: #94a3b8; text-decoration: none; font-size: 14px;">Gizlilik</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="padding-top: 32px; border-top: 1px solid #1e293b; text-align: center;">
+                <p style="font-size: 14px; color: #64748b;">© 2025 CodeCraft AI. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>

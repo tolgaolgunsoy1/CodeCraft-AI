@@ -3,19 +3,42 @@ import re
 import json
 from datetime import datetime
 import requests
+import logging
+from enhanced_templates import ENHANCED_TEMPLATES, MODERN_DEPENDENCIES, ENTERPRISE_FEATURES
+from design_engine import DesignEngine
+from screen_flow_engine import ScreenFlowEngine
+from gemini_ai import GeminiAI
+from gemini_config import GEMINI_API_KEY
+
+logger = logging.getLogger(__name__)
 
 class AndroidAppGenerator:
+    # AUTONOMOUS MASTER PROMPT - Zero-Touch APK Generation
+    AUTONOMOUS_PROMPT = """
+    Sen, insan müdahalesi olmadan (Zero-Touch) uçtan uca özgün Android APK'ları inşa eden bir 'Autonomous Senior Software Architect'sin.
+    
+    1. ÜRÜN TASARIMI (UNIQUE DNA): Her proje için benzersiz marka kimliği, renk paleti, tema stili oluştur.
+    2. ÖZGÜN ALGORİTMA: Projeye özel 'Smart Logic' algoritması yaz.
+    3. TEKNİK MİMARİ: Modern MVVM, Kotlin, Room, Retrofit, Coroutines kullan.
+    4. DERLEME GARANTİSİ: settings.gradle, UTF-8 encoding, backup_rules.xml eksiksiz oluştur.
+    
+    ÇIKTI: Derlenmiş, çalışmaya hazır, birbirinden tamamen farklı APK dosyaları.
+    """
+    
     def __init__(self):
         self.output_dir = "C:/android_projects"
         self.ensure_output_dir()
         self.app_templates = self.load_templates()
+        self.gemini = GeminiAI(GEMINI_API_KEY)
+        logger.info(f"AndroidAppGenerator initialized with Gemini AI")
     
     def ensure_output_dir(self):
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
     
     def load_templates(self):
-        return {
+        # Merge basic and enhanced templates
+        basic_templates = {
             'social_media': {
                 'name': 'SocialConnect',
                 'description': 'Modern sosyal medya uygulaması',
@@ -57,6 +80,12 @@ class AndroidAppGenerator:
                 'dependencies': ['play-services-fitness', 'charts']
             }
         }
+        
+        # Use enhanced templates if available
+        try:
+            return {**basic_templates, **ENHANCED_TEMPLATES}
+        except:
+            return basic_templates
     
     def ensure_output_dir(self):
         if not os.path.exists(self.output_dir):
@@ -71,6 +100,11 @@ class AndroidAppGenerator:
         package_name = f"com.example.{app_name.lower().replace(' ', '')}"
         if project_path is None:
             project_path = os.path.join(self.output_dir, app_name.replace(' ', '_'))
+        
+        # Force Java for now until Kotlin templates are ready
+        if language == 'kotlin':
+            logger.warning("Kotlin requested but using Java for stability")
+            language = 'java'
         
         # Enhanced configuration
         config = {
@@ -100,7 +134,26 @@ class AndroidAppGenerator:
     def analyze_idea(self, idea):
         idea_lower = idea.lower()
         
-        # Gelişmiş AI analizi
+        # Try Gemini AI first
+        logger.info("Analyzing idea with Gemini AI...")
+        ai_concept = self.gemini.generate_app_concept(idea)
+        
+        if ai_concept:
+            logger.info(f"Gemini AI generated concept: {ai_concept.get('app_name')}")
+            return {
+                'name': ai_concept.get('app_name', 'MyApp'),
+                'description': ai_concept.get('description', idea),
+                'features': ai_concept.get('unique_features', ['Feature 1', 'Feature 2']),
+                'activities': self._generate_activities_from_features(ai_concept.get('unique_features', [])),
+                'permissions': ['INTERNET', 'ACCESS_NETWORK_STATE'],
+                'dependencies': ['recyclerview', 'cardview', 'retrofit2'],
+                'ai_generated': True,
+                'category': ai_concept.get('category', 'general')
+            }
+        
+        logger.warning("Gemini AI failed, using fallback templates")
+        
+        # Fallback: Template-based analysis
         if any(word in idea_lower for word in ['sosyal', 'medya', 'paylaş', 'takip', 'arkadaş', 'chat', 'mesaj']):
             template = self.app_templates['social_media']
         elif any(word in idea_lower for word in ['e-ticaret', 'alışveriş', 'satış', 'ürün', 'sepet', 'ödeme', 'mağaza']):
@@ -118,6 +171,51 @@ class AndroidAppGenerator:
             template['description'] = f'Özel uygulama: {idea}'
         
         return template
+    
+    def _generate_activities_from_features(self, features):
+        """Özelliklerden activity listesi oluştur"""
+        activities = ['MainActivity']
+        
+        # Her özellik için bir activity
+        for i, feature in enumerate(features[:6], 1):
+            activity_name = feature.split('-')[0].strip().replace(' ', '') + 'Activity'
+            activities.append(activity_name)
+        
+        # Standart activities ekle
+        activities.extend(['SettingsActivity', 'ProfileActivity'])
+        return activities
+    
+    def _determine_permissions(self, analysis):
+        """Özelliklere göre izinleri belirle"""
+        permissions = ['INTERNET', 'ACCESS_NETWORK_STATE']
+        
+        features_text = ' '.join(analysis['unique_features']).lower()
+        
+        if 'kamera' in features_text or 'fotoğraf' in features_text:
+            permissions.append('CAMERA')
+        if 'konum' in features_text or 'gps' in features_text:
+            permissions.append('ACCESS_FINE_LOCATION')
+        if 'ses' in features_text or 'mikrofon' in features_text:
+            permissions.append('RECORD_AUDIO')
+        if 'titreşim' in features_text:
+            permissions.append('VIBRATE')
+        
+        return permissions
+    
+    def _determine_dependencies(self, analysis):
+        """Özelliklere göre bağımlılıkları belirle"""
+        deps = ['recyclerview', 'cardview', 'retrofit2', 'room', 'glide']
+        
+        features_text = ' '.join(analysis['unique_features']).lower()
+        
+        if 'kamera' in features_text or 'fotoğraf' in features_text:
+            deps.append('camerax')
+        if 'grafik' in features_text or 'chart' in features_text:
+            deps.append('charts')
+        if 'harita' in features_text:
+            deps.append('maps')
+        
+        return deps
     
     def create_project_structure(self, project_path, package_name, analysis, config):
         # Ana klasör yapısını oluştur
@@ -140,10 +238,8 @@ class AndroidAppGenerator:
         self.create_manifest(src_path, package_name, analysis, config)
         self.create_gradle_files(project_path, app_path, package_name, analysis, config)
         
-        if config['architecture'] == 'single_activity':
-            self.create_single_activity_structure(code_path, package_name, analysis, config)
-        else:
-            self.create_multi_activity_structure(code_path, package_name, analysis, config)
+        # ALWAYS create multi-activity structure with professional flow
+        self.create_multi_activity_structure(code_path, package_name, analysis, config)
         
         if config['use_compose']:
             self.create_compose_ui(code_path, package_name, analysis, config)
@@ -159,21 +255,83 @@ class AndroidAppGenerator:
         # APK build script oluştur
         self.create_build_script(project_path, analysis['name'])
         
-        # Production-ready dosyalar oluştur
-        self.create_production_files(project_path, package_name, analysis)
+        # Launcher icon oluştur
+        self.create_launcher_icon(res_path)
         
-        # Advanced production features
-        self.create_advanced_features(project_path, package_name, analysis, config)
-        self.create_ci_cd_files(project_path, analysis)
-        self.create_github_actions(project_path, analysis)
-        
-        # Dokümantasyon oluştur
-        self.create_documentation(project_path, analysis)
-        
-        # Tasarım dosyaları oluştur
-        self.create_design_files(project_path, analysis)
+        # XML backup rules oluştur
+        self.create_xml_resources(res_path, analysis)
     
-    def create_manifest(self, src_path, package_name, analysis):
+    def create_launcher_icon(self, res_path):
+        """Create launcher icon using XML drawable"""
+        mipmap_path = os.path.join(res_path, 'mipmap-anydpi-v26')
+        os.makedirs(mipmap_path, exist_ok=True)
+        
+        # ic_launcher.xml
+        launcher_xml = '''<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background"/>
+    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+</adaptive-icon>'''
+        
+        with open(os.path.join(mipmap_path, 'ic_launcher.xml'), 'w', encoding='utf-8') as f:
+            f.write(launcher_xml)
+        
+        with open(os.path.join(mipmap_path, 'ic_launcher_round.xml'), 'w', encoding='utf-8') as f:
+            f.write(launcher_xml)
+        
+        # Foreground drawable
+        drawable_path = os.path.join(res_path, 'drawable')
+        foreground_xml = '''<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,54m-30,0a30,30 0,1,1 60,0a30,30 0,1,1 -60,0"/>
+</vector>'''
+        
+        with open(os.path.join(drawable_path, 'ic_launcher_foreground.xml'), 'w', encoding='utf-8') as f:
+            f.write(foreground_xml)
+        
+        # Background color
+        values_path = os.path.join(res_path, 'values')
+        with open(os.path.join(values_path, 'ic_launcher_background.xml'), 'w', encoding='utf-8') as f:
+            f.write('<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">#6200EE</color>\n</resources>')
+    
+    def create_xml_resources(self, res_path, analysis):
+        """Create XML backup rules"""
+        xml_path = os.path.join(res_path, 'xml')
+        os.makedirs(xml_path, exist_ok=True)
+        
+        # backup_rules.xml
+        backup_rules = '''<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <include domain="sharedpref" path="."/>
+    <exclude domain="sharedpref" path="device.xml"/>
+</full-backup-content>'''
+        
+        with open(os.path.join(xml_path, 'backup_rules.xml'), 'w', encoding='utf-8') as f:
+            f.write(backup_rules)
+        
+        # data_extraction_rules.xml
+        data_extraction = '''<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="."/>
+        <exclude domain="sharedpref" path="device.xml"/>
+    </cloud-backup>
+</data-extraction-rules>'''
+        
+        with open(os.path.join(xml_path, 'data_extraction_rules.xml'), 'w', encoding='utf-8') as f:
+            f.write(data_extraction)
+    
+    def create_manifest(self, src_path, package_name, analysis, config=None):
+        # Get professional screen flow
+        category = analysis.get('name', 'default')
+        activities = ScreenFlowEngine.generate_activity_list(category)
+        
         permissions = '\n'.join([f'    <uses-permission android:name="android.permission.{perm}" />' for perm in analysis.get('permissions', [])])
         
         # Temel network permissions ekle
@@ -184,6 +342,23 @@ class AndroidAppGenerator:
             permissions = base_permissions + '\n' + permissions
         else:
             permissions = base_permissions
+        
+        # Generate activity declarations - SplashActivity is launcher
+        activity_declarations = ''
+        launcher_activity = 'SplashActivity' if 'SplashActivity' in activities else 'MainActivity'
+        
+        for activity in activities:
+            if activity == launcher_activity:
+                activity_declarations += f'''        <activity android:name=".{activity}"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+'''
+            else:
+                activity_declarations += f'        <activity android:name=".{activity}" />\n'
         
         manifest_content = f'''<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -198,19 +373,11 @@ class AndroidAppGenerator:
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         
-        <activity android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        {self.generate_activity_declarations(analysis)}
+{activity_declarations}
     </application>
 </manifest>'''
         
-        with open(os.path.join(src_path, 'AndroidManifest.xml'), 'w') as f:
+        with open(os.path.join(src_path, 'AndroidManifest.xml'), 'w', encoding='utf-8') as f:
             f.write(manifest_content)
     
     def generate_activity_declarations(self, analysis):
@@ -219,243 +386,98 @@ class AndroidAppGenerator:
             declarations += f'        <activity android:name=".{activity}" />\n'
         return declarations
     
-    def create_gradle_files(self, project_path, app_path, package_name):
-        # build.gradle (project level)
-        project_gradle = '''buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.2'
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}'''
-        
-        with open(os.path.join(project_path, 'build.gradle'), 'w') as f:
-            f.write(project_gradle)
-        
-        # build.gradle (app level)
-        app_gradle = '''plugins {
-    id 'com.android.application'
-}
-
-android {
-    namespace "''' + package_name + '''"
-    compileSdk 34
-    
-    defaultConfig {
-        applicationId "''' + package_name + '''"
-        minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-    }
-    
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    
-    buildFeatures {
-        viewBinding true
-    }
-}
-
-dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.7.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.7.0'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.7.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
-    implementation 'androidx.room:room-runtime:2.5.0'
-    annotationProcessor 'androidx.room:room-compiler:2.5.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
-    implementation 'androidx.work:work-runtime:2.9.0'
-    implementation 'androidx.navigation:navigation-fragment:2.7.6'
-    implementation 'androidx.navigation:navigation-ui:2.7.6'
-    
-    // Testing
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'org.mockito:mockito-core:5.8.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test:rules:1.5.0'
-}'''
-        
-        with open(os.path.join(app_path, 'build.gradle'), 'w') as f:
-            f.write(app_gradle)
-        
-        # settings.gradle
-        settings_gradle = '''pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-rootProject.name = "''' + package_name.split('.')[-1] + '''"
-include ':app'
-'''
-        
-        with open(os.path.join(project_path, 'settings.gradle'), 'w') as f:
-            f.write(settings_gradle)
-        
-        # gradle.properties
-        gradle_properties = '''# Project-wide Gradle settings.
-org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-org.gradle.parallel=true
-android.useAndroidX=true
-android.enableJetifier=true
-'''
-        
-        with open(os.path.join(project_path, 'gradle.properties'), 'w') as f:
-            f.write(gradle_properties)
     
     def create_java_main_activity(self, package_name, analysis):
-        """Create Java MainActivity"""
+        """Create Java MainActivity using XML layout"""
+        
         return f'''package {package_name};
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {{
-
-    private RecyclerView featuresRecyclerView;
-    private TextView appDescriptionText;
-    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        initializeViews();
-        setupFeaturesList();
+        setupDashboard();
+        setupBottomNavigation();
     }}
     
-    private void initializeViews() {{
-        appDescriptionText = findViewById(R.id.app_description);
-        featuresRecyclerView = findViewById(R.id.features_recycler);
-        startButton = findViewById(R.id.start_button);
+    private void setupDashboard() {{
+        RecyclerView recyclerView = findViewById(R.id.dashboard_recycler);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         
-        appDescriptionText.setText("{analysis['description']}");
+        List<DashboardItem> items = new ArrayList<>();
+        items.add(new DashboardItem("Profile", ProfileActivity.class));
+        items.add(new DashboardItem("Settings", SettingsActivity.class));
+        items.add(new DashboardItem("Detail", DetailActivity.class));
+        items.add(new DashboardItem("Onboarding", OnboardingActivity.class));
         
-        startButton.setOnClickListener(new View.OnClickListener() {{
-            @Override
-            public void onClick(View v) {{
-                Toast.makeText(MainActivity.this, "Hoş geldiniz! Uygulama hazır.", Toast.LENGTH_LONG).show();
-            }}
+        recyclerView.setAdapter(new DashboardAdapter(items));
+    }}
+    
+    private void setupBottomNavigation() {{
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnItemSelectedListener(item -> {{
+            return true;
         }});
     }}
     
-    private void setupFeaturesList() {{
-        List<String> features = new ArrayList<>();
-        {self.generate_features_list(analysis['features'])}
-        
-        featuresRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // Adapter burada eklenecek
-    }}
-}}'''
-        # MainActivity
-        main_activity = f'''package {package_name};
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {{
-
-    private RecyclerView featuresRecyclerView;
-    private TextView appDescriptionText;
-    private Button startButton;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {{
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        initializeViews();
-        setupFeaturesList();
+    class DashboardItem {{
+        String title;
+        Class<?> activityClass;
+        DashboardItem(String t, Class<?> c) {{ title = t; activityClass = c; }}
     }}
     
-    private void initializeViews() {{
-        appDescriptionText = findViewById(R.id.app_description);
-        featuresRecyclerView = findViewById(R.id.features_recycler);
-        startButton = findViewById(R.id.start_button);
+    class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.ViewHolder> {{
+        List<DashboardItem> items;
+        DashboardAdapter(List<DashboardItem> i) {{ items = i; }}
         
-        appDescriptionText.setText("{analysis['description']}");
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {{
+            TextView tv = new TextView(parent.getContext());
+            tv.setPadding(48, 96, 48, 96);
+            tv.setTextSize(20);
+            tv.setTextColor(0xFF000000);
+            tv.setBackgroundColor(0xFFE3F2FD);
+            tv.setGravity(17);
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(16, 16, 16, 16);
+            tv.setLayoutParams(params);
+            return new ViewHolder(tv);
+        }}
         
-        startButton.setOnClickListener(new View.OnClickListener() {{
-            @Override
-            public void onClick(View v) {{
-                Toast.makeText(MainActivity.this, "Hoş geldiniz! Uygulama hazır.", Toast.LENGTH_LONG).show();
-            }}
-        }});
-    }}
-    
-    private void setupFeaturesList() {{
-        List<String> features = new ArrayList<>();
-        {self.generate_features_list(analysis['features'])}
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {{
+            DashboardItem item = items.get(position);
+            holder.textView.setText(item.title);
+            holder.textView.setOnClickListener(v -> 
+                startActivity(new Intent(MainActivity.this, item.activityClass)));
+        }}
         
-        featuresRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // Adapter burada eklenecek
+        @Override
+        public int getItemCount() {{ return items.size(); }}
+        
+        class ViewHolder extends RecyclerView.ViewHolder {{
+            TextView textView;
+            ViewHolder(TextView tv) {{ super(tv); textView = tv; }}
+        }}
     }}
 }}'''
-        
-        with open(os.path.join(java_path, 'MainActivity.java'), 'w') as f:
-            f.write(main_activity)
-        
-        # Diğer aktiviteleri oluştur
-        for activity in analysis.get('activities', [])[1:]:
-            self.create_secondary_activity(java_path, package_name, activity)
     
     def generate_features_list(self, features):
         features_code = ""
@@ -464,18 +486,22 @@ public class MainActivity extends AppCompatActivity {{
         return features_code
     
     def create_secondary_activity(self, java_path, package_name, activity_name):
+        # Remove Turkish characters from activity name
+        safe_activity_name = activity_name.replace('ı', 'i').replace('ş', 's').replace('ğ', 'g').replace('ü', 'u').replace('ö', 'o').replace('ç', 'c')
+        safe_activity_name = safe_activity_name.replace('İ', 'I').replace('Ş', 'S').replace('Ğ', 'G').replace('Ü', 'U').replace('Ö', 'O').replace('Ç', 'C')
+        
         activity_code = f'''package {package_name};
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class {activity_name} extends AppCompatActivity {{
+public class {safe_activity_name} extends AppCompatActivity {{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {{
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_{activity_name.lower().replace('activity', '')});
+        setContentView(R.layout.activity_main);
         
         if (getSupportActionBar() != null) {{
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -492,26 +518,35 @@ public class {activity_name} extends AppCompatActivity {{
     }}
 }}'''
         
-        with open(os.path.join(java_path, f'{activity_name}.java'), 'w') as f:
+        with open(os.path.join(java_path, f'{safe_activity_name}.java'), 'w', encoding='utf-8') as f:
             f.write(activity_code)
     
     def create_layouts(self, res_path, analysis):
-        # activity_main.xml - Modern Material Design
+        # Get unique design for this project
+        category = analysis.get('name', 'general').lower()
+        design = DesignEngine.generate_unique_design(category)
+        colors = design['colors']
+        style = design['style_config']
+        
+        # activity_main.xml - Modern Dashboard with unique design
         main_layout = f'''<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/surface">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/primary">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name" />
+            app:title="@string/app_name"
+            app:titleTextColor="#FFFFFF" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -526,144 +561,73 @@ public class {activity_name} extends AppCompatActivity {{
             android:orientation="vertical"
             android:padding="16dp">
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dashboard_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Uygulama Hakkında"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp" />
-
-                    <TextView
-                        android:id="@+id/app_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/app_description"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Özellikler"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="8dp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/features_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/start_button"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="Başla"
-                android:textSize="16sp"
-                app:cornerRadius="28dp" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/surface"
+        app:menu="@menu/bottom_nav_menu" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>'''
         
-        with open(os.path.join(res_path, 'layout', 'activity_main.xml'), 'w') as f:
+        with open(os.path.join(res_path, 'layout', 'activity_main.xml'), 'w', encoding='utf-8') as f:
             f.write(main_layout)
+        
+        # Create menu for bottom navigation
+        menu_path = os.path.join(res_path, 'menu')
+        os.makedirs(menu_path, exist_ok=True)
+        
+        bottom_menu = '''<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_home" android:title="Home" android:icon="@android:drawable/ic_menu_view" />
+    <item android:id="@+id/nav_search" android:title="Search" android:icon="@android:drawable/ic_menu_search" />
+    <item android:id="@+id/nav_profile" android:title="Profile" android:icon="@android:drawable/ic_menu_myplaces" />
+    <item android:id="@+id/nav_settings" android:title="Settings" android:icon="@android:drawable/ic_menu_preferences" />
+</menu>'''
+        
+        with open(os.path.join(menu_path, 'bottom_nav_menu.xml'), 'w', encoding='utf-8') as f:
+            f.write(bottom_menu)
     
     def create_resources(self, res_path, analysis):
+        # Generate unique design for this project
+        category = analysis.get('name', 'general').lower()
+        design = DesignEngine.generate_unique_design(category)
+        
+        logger.info(f"Generated unique design: {design['style']} style with {design['palette']} palette")
+        
         # strings.xml with proper encoding
         strings_xml = '''<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">''' + analysis['name'] + '''</string>
     <string name="app_description">''' + analysis['description'] + '''</string>
-    <string name="features_title">Özellikler</string>
-    <string name="start_button">Başla</string>
-    <string name="welcome_message">Hoş geldiniz!</string>
+    <string name="features_title">Features</string>
+    <string name="start_button">Start</string>
+    <string name="welcome_message">Welcome!</string>
 </resources>'''
         
-        with open(os.path.join(res_path, 'values', 'strings.xml'), 'w') as f:
+        with open(os.path.join(res_path, 'values', 'strings.xml'), 'w', encoding='utf-8') as f:
             f.write(strings_xml)
         
-        # colors.xml - Material Design 3 colors
-        colors_xml = '''<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="primary">#FF6200EE</color>
-    <color name="primary_variant">#FF3700B3</color>
-    <color name="secondary">#FF03DAC6</color>
-    <color name="background">#FFFFFFFF</color>
-    <color name="surface">#FFFFFFFF</color>
-    <color name="error">#FFB00020</color>
-    <color name="on_primary">#FFFFFFFF</color>
-    <color name="on_secondary">#FF000000</color>
-    <color name="on_background">#FF000000</color>
-    <color name="on_surface">#FF000000</color>
-    <color name="on_error">#FFFFFFFF</color>
-</resources>'''
+        # colors.xml - Unique palette
+        colors_xml = DesignEngine.generate_colors_xml(design)
         
-        with open(os.path.join(res_path, 'values', 'colors.xml'), 'w') as f:
+        with open(os.path.join(res_path, 'values', 'colors.xml'), 'w', encoding='utf-8') as f:
             f.write(colors_xml)
         
-        # themes.xml - Material Design 3 theme
-        themes_xml = '''<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="AppTheme" parent="Theme.Material3.DayNight">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary_variant</item>
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="android:colorBackground">@color/background</item>
-        <item name="colorSurface">@color/surface</item>
-        <item name="colorError">@color/error</item>
-        <item name="colorOnPrimary">@color/on_primary</item>
-        <item name="colorOnSecondary">@color/on_secondary</item>
-        <item name="colorOnBackground">@color/on_background</item>
-        <item name="colorOnSurface">@color/on_surface</item>
-        <item name="colorOnError">@color/on_error</item>
-    </style>
-</resources>'''
+        # themes.xml - Unique style
+        themes_xml = DesignEngine.generate_themes_xml(design)
         
-        with open(os.path.join(res_path, 'values', 'themes.xml'), 'w') as f:
+        with open(os.path.join(res_path, 'values', 'themes.xml'), 'w', encoding='utf-8') as f:
             f.write(themes_xml)
         
         # dimens.xml
@@ -680,69 +644,412 @@ public class {activity_name} extends AppCompatActivity {{
     <dimen name="card_elevation">4dp</dimen>
 </resources>'''
         
-        with open(os.path.join(res_path, 'values', 'dimens.xml'), 'w') as f:
+        with open(os.path.join(res_path, 'values', 'dimens.xml'), 'w', encoding='utf-8') as f:
             f.write(dimens_xml)
     
     def create_gradle_wrapper(self, project_path):
         # gradle/wrapper/gradle-wrapper.properties
         wrapper_dir = os.path.join(project_path, 'gradle', 'wrapper')
         os.makedirs(wrapper_dir, exist_ok=True)
-        
+
         wrapper_properties = '''distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
 distributionUrl=https\\://services.gradle.org/distributions/gradle-8.0-bin.zip
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists'''
-        
-        with open(os.path.join(wrapper_dir, 'gradle-wrapper.properties'), 'w') as f:
+
+        with open(os.path.join(wrapper_dir, 'gradle-wrapper.properties'), 'w', encoding='utf-8') as f:
             f.write(wrapper_properties)
-        
-        # gradle-wrapper.jar (dummy file - gerçek projede binary olmalı)
-        jar_content = b'PK\x03\x04'  # ZIP header
-        with open(os.path.join(wrapper_dir, 'gradle-wrapper.jar'), 'wb') as f:
-            f.write(jar_content)
-        
-        # gradlew.bat - Basitleştirilmiş versiyon
-        gradlew_bat = '''@echo off
-echo Gradle build baslatiliyor...
+
+        # Download real gradle-wrapper.jar
+        import urllib.request
+        try:
+            jar_url = "https://github.com/gradle/gradle/raw/v8.0.2/gradle/wrapper/gradle-wrapper.jar"
+            jar_path = os.path.join(wrapper_dir, 'gradle-wrapper.jar')
+            urllib.request.urlretrieve(jar_url, jar_path)
+        except Exception as e:
+            print(f"Warning: Could not download gradle-wrapper.jar: {e}")
+            # Fallback to dummy jar
+            jar_content = b'PK\x03\x04'  # ZIP header
+            with open(os.path.join(wrapper_dir, 'gradle-wrapper.jar'), 'wb') as f:
+                f.write(jar_content)
+
+        # gradlew.bat - Real Gradle wrapper script
+        gradlew_bat = '''@if "%DEBUG%" == "" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
+
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
+
+set DIRNAME=%~dp0
+if "%DIRNAME%" == "" set DIRNAME=.
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
+
+@rem Resolve any "." and ".." in APP_HOME to make it shorter.
+for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
+
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if "%ERRORLEVEL%" == "0" goto init
+
 echo.
-echo UYARI: Gradle wrapper eksik!
-echo Lutfen Android Studio ile projeyi acin ve Gradle sync yapin.
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
 echo.
-echo Alternatif: Android Studio'da Build > Make Project
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto init
+
 echo.
-pause'''
-        
-        with open(os.path.join(project_path, 'gradlew.bat'), 'w') as f:
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:init
+@rem Get command-line arguments, handling Windows variants
+
+if not "%OS%" == "Windows_NT" goto win9xME_args
+
+:win9xME_args
+@rem Slurp the command line arguments.
+set CMD_LINE_ARGS=
+set _SKIP=2
+
+:win9xME_args_slurp
+if "x%~1" == "x" goto execute
+
+set CMD_LINE_ARGS=%CMD_LINE_ARGS% %~1
+shift
+goto win9xME_args_slurp
+
+:win9xME_args_done
+@rem Don't call me again!
+goto execute
+
+:winNT_args
+@rem Slurp the command line arguments.
+set CMD_LINE_ARGS=
+set _SKIP=2
+
+:winNT_args_slurp
+if "x%~1" == "x" goto execute
+
+set CMD_LINE_ARGS=%CMD_LINE_ARGS% %~1
+shift
+goto winNT_args_slurp
+
+:winNT_args_done
+@rem Don't call me again!
+goto execute
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %CMD_LINE_ARGS%
+
+:end
+@rem End local scope for the variables with windows NT shell
+if "%ERRORLEVEL%"=="0" goto mainEnd
+
+:fail
+rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem the _cmd_ return code.
+if  not "" == "%GRADLE_EXIT_CONSOLE%" exit 1
+exit /b 1
+
+:mainEnd
+if "%OS%"=="Windows_NT" endlocal
+
+:omega'''
+
+        with open(os.path.join(project_path, 'gradlew.bat'), 'w', encoding='utf-8') as f:
             f.write(gradlew_bat)
+
+        # gradlew - Unix script
+        gradlew_unix = '''#!/bin/sh
+
+#
+# Copyright © 2015-2021 the original authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+##############################################################################
+#
+#   Gradle start up script for POSIX generated by Gradle.
+#
+#   Important for running:
+#
+#   (1) You need a POSIX-compliant shell to run this script. If your /bin/sh is
+#       noncompliant, but you have some other compliant shell such as ksh or
+#       bash, then to run this script, type that shell name before the whole
+#       command line, like:
+#
+#           ksh Gradle
+#
+#       Busybox and similar reduced shells will NOT work, because this script
+#       requires all of these POSIX shell features:
+#         * functions;
+#         * expansions «$var», «${var}», «${var:-default}», «${var+SET}»,
+#           «${var#prefix}», «${var%suffix}», and «$( cmd )»;
+#         * compound commands having a testable exit status, especially «case»;
+#         * various built-in commands including «command», «set», and «ulimit».
+#
+#   Important for patching:
+#
+#   (2) This script targets any POSIX shell, so it avoids extensions provided
+#       by Bash, Ksh, etc; in particular arrays are avoided.
+#
+#       The "traditional" practice of packing multiple parameters into a
+#       space-separated string is a well documented source of bugs and security
+#       problems, so this is (mostly) avoided, by progressively accumulating
+#       options in "$@", and eventually passing that to Java.
+#
+#       Where the inherited environment variables (DEFAULT_JVM_OPTS, JAVA_OPTS,
+#       and GRADLE_OPTS) rely on word-splitting, this is performed explicitly;
+#       see the in-line comments for details.
+#
+#       There are tweaks for specific operating systems such as AIX, CygWin,
+#       Darwin, MinGW, and NonStop.
+#
+#   (3) This script is generated from the Gradle template within the Gradle project.
+#
+#       You can find Gradle at https://github.com/gradle/gradle/.
+#
+##############################################################################
+
+# Attempt to set APP_HOME
+
+# Resolve links: $0 may be a link
+app_path=$0
+
+# Need this for daisy-chained symlinks.
+while
+    APP_HOME=${app_path%"${app_path##*/}"}  # leaves a trailing /; empty if no leading path
+    [ -h "$app_path" ]
+do
+    ls=$( ls -ld "$app_path" )
+    link=${ls#*' -> '}
+    case $link in             #(
+      /*)   app_path=$link ;; #(
+      *)    app_path=$APP_HOME$link ;;
+    esac
+done
+
+APP_HOME=$( cd "${APP_HOME:-./}" && pwd -P ) || exit
+
+APP_NAME="Gradle"
+APP_BASE_NAME=${0##*/}
+
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD=maximum
+
+warn () {
+    echo "$*"
+} >&2
+
+die () {
+    echo
+    echo "$*"
+    echo
+    exit 1
+} >&2
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false
+msys=false
+darwin=false
+nonstop=false
+case "$( uname )" in                #(
+  CYGWIN* )         cygwin=true  ;; #(
+  Darwin* )         darwin=true  ;; #(
+  MSYS* | MINGW* )  msys=true    ;; #(
+  NONSTOP* )        nonstop=true ;;
+esac
+
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
+
+# Determine the Java command to use to start the JVM.
+if [ -n "$JAVA_HOME" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+        # IBM's JDK on AIX uses strange locations for the executables
+        JAVACMD=$JAVA_HOME/jre/sh/java
+    else
+        JAVACMD=$JAVA_HOME/bin/java
+    fi
+    if [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
+else
+    JAVACMD=java
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+fi
+
+# Increase the maximum file descriptors.
+if ! "$cygwin" && ! "$darwin" && ! "$nonstop" ; then
+    case $MAX_FD in #(
+      max*)
+        MAX_FD=$( ulimit -H -n ) ||
+            warn "Could not query maximum file descriptor limit"
+    esac
+    case $MAX_FD in  #(
+      '' | soft) :;; #(
+      *)
+        ulimit -n "$MAX_FD" ||
+            warn "Could not set maximum file descriptor limit to $MAX_FD"
+    esac
+fi
+
+# Collect all arguments for the java command, stacking in reverse order:
+#   * args from the command line
+#   * the main class name
+#   * -classpath
+#   * -D...appname settings
+#   * --module-path (only if needed)
+#   * DEFAULT_JVM_OPTS, JAVA_OPTS, and GRADLE_OPTS environment variables.
+
+# For Cygwin or MSYS, switch paths to Windows format before running java
+if "$cygwin" || "$msys" ; then
+    APP_HOME=$( cygpath --path --mixed "$APP_HOME" )
+    CLASSPATH=$( cygpath --path --mixed "$CLASSPATH" )
+
+    JAVACMD=$( cygpath --unix "$JAVACMD" )
+
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    for arg do
+        if
+            case $arg in                                #(
+              -*)   false ;;                            # don't mess with options #(
+              /?*)  t=${arg#/} t=/${t%%/*}              # looks like a POSIX filepath
+                    [ -e "$t" ] ;;                      #(
+              *)    false ;;
+            esac
+        then
+            arg=$( cygpath --path --ignore --mixed "$arg" )
+        fi
+        # Roll the args list around exactly as many times as the number of
+        # args, so each arg winds up back in the position where it started, but
+        # possibly modified.
+        #
+        # NB: a `for` loop captures its iteration list before it begins, so
+        # changing the positional parameters here affects neither the number of
+        # iterations, nor the values presented in `arg`.
+        shift                   # remove old arg
+        set -- "$@" "$arg"      # push replacement arg
+    done
+fi
+
+# Collect all arguments for the java command;
+#   * $DEFAULT_JVM_OPTS, $JAVA_OPTS, and $GRADLE_OPTS can contain fragments of
+#   * shell script including quotes and variable substitutions, so put them in
+#   * double quotes to make sure that they get re-expanded; and
+#   * put everything else in single quotes, so that it's not re-expanded.
+
+set -- \\
+        "-Dorg.gradle.appname=$APP_BASE_NAME" \\
+        -classpath "$CLASSPATH" \\
+        org.gradle.wrapper.GradleWrapperMain \\
+        "$@"
+
+# Stop when "xargs" is not available.
+if ! command -v xargs >/dev/null 2>&1
+then
+    die "xargs is not available"
+fi
+
+# Use "xargs" to parse quoted args.
+#
+# With -n1 it outputs one arg per line, with the quotes and backslashes removed.
+#
+# In Bash we could simply go:
+#
+#   readarray ARGS < <( xargs -n1 <<<"$var" ) &&
+#   set -- "${ARGS[@]}" "$@"
+#
+# but POSIX shell has neither arrays nor command substitution, so instead we
+# post-process each arg (as a line of input to sed) to backslash-escape any
+# character that might be a shell metacharacter, then use eval to parse
+# the result into positional parameters in a way that is safe from injection.
+
+eval "set -- $(
+        printf '%s\\n' "$DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS" |
+        xargs -n1 |
+        sed ' s~[^-[:alnum:]+,./:=@_]~\\\\&~g; ' |
+        tr '\\n' ' '
+    )" '"$@"'
+
+exec "$JAVACMD" "$@"
+'''
+
+        with open(os.path.join(project_path, 'gradlew'), 'w', encoding='utf-8') as f:
+            f.write(gradlew_unix)
     
     def create_build_script(self, project_path, app_name):
         build_script = f'''@echo off
-echo {app_name} APK Olusturuluyor...
+echo {app_name} APK Building...
 echo.
 
 cd /d "{project_path}"
 
-echo Android Studio ile acmak icin ENTER basin...
-echo (APK olusturmak icin Android Studio gereklidir)
-echo.
-echo Adimlar:
-echo 1. Android Studio'yu ac
-echo 2. "Open an existing project" sec
-echo 3. Bu klasoru sec: {project_path}
-echo 4. Gradle sync bekle
-echo 5. Build > Make Project
-echo 6. Build > Build Bundle(s) / APK(s) > Build APK(s)
-echo.
-echo APK konumu: app\\build\\outputs\\apk\\debug\\app-debug.apk
-echo.
-pause
+echo Building APK automatically...
+call gradlew.bat assembleDebug
 
-echo Android Studio aciliyor...
-start "" "{project_path}"
+if exist "app\\build\\outputs\\apk\\debug\\app-debug.apk" (
+    echo.
+    echo SUCCESS! APK created at:
+    echo app\\build\\outputs\\apk\\debug\\app-debug.apk
+    echo.
+) else (
+    echo.
+    echo Build failed. Please check Java installation.
+    echo.
+)
 '''
         
-        with open(os.path.join(project_path, 'build_apk.bat'), 'w') as f:
+        with open(os.path.join(project_path, 'build_apk.bat'), 'w', encoding='utf-8') as f:
             f.write(build_script)
         
         # Android Studio import rehberi
@@ -1323,144 +1630,7 @@ public class MainActivityTest {{
         return tasks
     
     def create_design_files(self, project_path, analysis):
-        # Design klasörü oluştur
-        design_path = os.path.join(project_path, 'design')
-        os.makedirs(design_path, exist_ok=True)
-        
-        # UI_DESIGN.md
-        ui_design = f'''# {analysis['name']} - UI/UX Tasarım Rehberi
-
-## 🎨 Tasarım Felsefesi
-
-**Tema:** Modern, minimalist ve kullanıcı dostu
-**Hedef:** {analysis['description']}
-**Platform:** Android (Material Design 3)
-
-## 🌈 Renk Paleti
-
-### Ana Renkler
-```
-Primary Color:    #6200EE (🟣 Mor)
-Secondary Color:  #03DAC6 (🟢 Turkuaz)
-Background:       #FFFFFF (⚪ Beyaz)
-Surface:          #F5F5F5 (🔘 Açık Gri)
-Error:            #B00020 (🔴 Kırmızı)
-```
-
-### Renk Kullanımı
-- **Primary:** Ana butonlar, başlıklar, vurgular
-- **Secondary:** Yardımcı butonlar, linkler, ikonlar
-- **Background:** Ana arka plan
-- **Surface:** Kartlar, dialog'lar, bottom sheet'ler
-- **Error:** Hata mesajları, uyarılar
-
-## 🔤 Tipografi
-
-### Font Ailesi
-**Roboto** (Android varsayılan)
-
-### Metin Boyutları
-```
-Headline 1:  32sp (Ana başlıklar)
-Headline 2:  24sp (Bölüm başlıkları)
-Subtitle 1:  18sp (Alt başlıklar)
-Body 1:      16sp (Ana metin)
-Body 2:      14sp (Yardımcı metin)
-Caption:     12sp (Küçük açıklamalar)
-Button:      14sp (Buton metinleri)
-```
-
-## 📏 Layout Sistemi
-
-### Spacing (Boşluk)
-```
-XS:  4dp  (Küçük boşluklar)
-SM:  8dp  (Orta boşluklar)
-MD:  16dp (Standart boşluklar)
-LG:  24dp (Büyük boşluklar)
-XL:  32dp (Çok büyük boşluklar)
-```
-
-## 📱 Ekran Tasarımları
-
-### Ana Ekran
-- AppBar ile başlık
-- CardView'lar ile özellik listesi
-- FloatingActionButton ile hızlı erişim
-- Bottom Navigation (gerekirse)
-
-### Liste Ekranları
-- RecyclerView ile performanslı listeleme
-- SwipeRefreshLayout ile yenileme
-- Empty state görünümü
-- Loading indicator
-
-## 🎯 UI Bileşenleri
-
-### Butonlar
-```xml
-<com.google.android.material.button.MaterialButton
-    style="@style/Widget.Material3.Button"
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:text="Ana Buton"
-    app:cornerRadius="28dp" />
-```
-
-### Kartlar
-```xml
-<com.google.android.material.card.MaterialCardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
-    
-    <!-- Kart içeriği -->
-    
-</com.google.android.material.card.MaterialCardView>
-```
-
----
-
-**Tasarım her zaman kullanıcı deneyimini öncelemeli! 🎨**
-'''
-        
-        with open(os.path.join(design_path, 'UI_DESIGN.md'), 'w', encoding='utf-8') as f:
-            f.write(ui_design)
-        
-        # FEATURES.md
-        features_doc = f'''# {analysis['name']} - Özellik Detayları
-
-## 🚀 Özellik Listesi
-
-{self.format_features_list(analysis['features'])}
-
-## 📊 Özellik Prioritesi
-
-### Yüksek Öncelik (MVP)
-{self.format_features_list(analysis['features'][:3])}
-
-### Orta Öncelik
-{self.format_features_list(analysis['features'][3:5])}
-
-### Düşük Öncelik
-{self.format_features_list(analysis['features'][5:])}
-
-## 🛠️ Teknik Gereksinimler
-
-- Android API 24+ (Android 7.0)
-- Material Design 3 bileşenleri
-- Modern Android Architecture (MVVM)
-- Room Database (yerel veri)
-- Retrofit (network)
-
-## 📝 Geliştirme Notları
-
-- Her özellik için ayrı Activity/Fragment
-- Consistent naming convention
-- Error handling ve user feedback
-- Offline support düşünülür
-'''
+        """Create design documentation"""
         
         with open(os.path.join(design_path, 'FEATURES.md'), 'w', encoding='utf-8') as f:
             f.write(features_doc)
@@ -1521,7 +1691,7 @@ public class MainViewModel extends ViewModel {{
     }}
 }}'''
         
-        with open(os.path.join(java_path, 'MainViewModel.java'), 'w') as f:
+        with open(os.path.join(java_path, 'MainViewModel.java'), 'w', encoding='utf-8') as f:
             f.write(viewmodel_code)
         
         # AppState.java
@@ -1553,7 +1723,7 @@ public class AppState {{
     }}
 }}'''
         
-        with open(os.path.join(java_path, 'AppState.java'), 'w') as f:
+        with open(os.path.join(java_path, 'AppState.java'), 'w', encoding='utf-8') as f:
             f.write(appstate_code)
         
         # FeaturesAdapter.java
@@ -1602,7 +1772,7 @@ public class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.ViewHo
     }}
 }}'''
         
-        with open(os.path.join(java_path, 'FeaturesAdapter.java'), 'w') as f:
+        with open(os.path.join(java_path, 'FeaturesAdapter.java'), 'w', encoding='utf-8') as f:
             f.write(adapter_code)
     
     def create_advanced_features(self, project_path, package_name, analysis):
@@ -1665,7 +1835,7 @@ public class AppRepository {{
     }}
 }}'''
         
-        with open(os.path.join(java_path, 'AppRepository.java'), 'w') as f:
+        with open(os.path.join(java_path, 'AppRepository.java'), 'w', encoding='utf-8') as f:
             f.write(repository_code)
         
         # Network Manager
@@ -1721,7 +1891,7 @@ public class NetworkManager {{
     }}
 }}'''
         
-        with open(os.path.join(java_path, 'NetworkManager.java'), 'w') as f:
+        with open(os.path.join(java_path, 'NetworkManager.java'), 'w', encoding='utf-8') as f:
             f.write(network_code)
         
         # Preferences Manager
@@ -1771,7 +1941,7 @@ public class PreferencesManager {{
     }}
 }}'''
         
-        with open(os.path.join(java_path, 'PreferencesManager.java'), 'w') as f:
+        with open(os.path.join(java_path, 'PreferencesManager.java'), 'w', encoding='utf-8') as f:
             f.write(prefs_code)
         
         # Utils class
@@ -1817,7 +1987,7 @@ public class Utils {{
     }}
 }}'''
         
-        with open(os.path.join(java_path, 'Utils.java'), 'w') as f:
+        with open(os.path.join(java_path, 'Utils.java'), 'w', encoding='utf-8') as f:
             f.write(utils_code)
         
         # Test dosyaları oluştur
@@ -1940,7 +2110,7 @@ public class MainViewModelTest {{
     }}
 }}'''
         
-        with open(os.path.join(test_path, 'MainViewModelTest.java'), 'w') as f:
+        with open(os.path.join(test_path, 'MainViewModelTest.java'), 'w', encoding='utf-8') as f:
             f.write(viewmodel_test)
         
         # UtilsTest
@@ -1972,7 +2142,7 @@ public class UtilsTest {{
     }}
 }}'''
         
-        with open(os.path.join(test_path, 'UtilsTest.java'), 'w') as f:
+        with open(os.path.join(test_path, 'UtilsTest.java'), 'w', encoding='utf-8') as f:
             f.write(utils_test)
 
     
@@ -1992,7 +2162,7 @@ public class UtilsTest {{
             main_activity = self.create_java_main_activity(package_name, analysis)
             ext = '.java'
 
-        with open(os.path.join(code_path, f'MainActivity{ext}'), 'w') as f:
+        with open(os.path.join(code_path, f'MainActivity{ext}'), 'w', encoding='utf-8') as f:
             f.write(main_activity)
 
         # Create Fragments for each screen
@@ -2008,23 +2178,32 @@ public class UtilsTest {{
                 fragment_code = KotlinGenerator.create_fragment(package_name, fragment_name, analysis)
                 viewmodel_code = KotlinGenerator.create_viewmodel(package_name, fragment_name)
 
-                with open(os.path.join(fragment_path, f'{fragment_name}Fragment.kt'), 'w') as f:
+                with open(os.path.join(fragment_path, f'{fragment_name}Fragment.kt'), 'w', encoding='utf-8') as f:
                     f.write(fragment_code)
-                with open(os.path.join(fragment_path, f'{fragment_name}ViewModel.kt'), 'w') as f:
+                with open(os.path.join(fragment_path, f'{fragment_name}ViewModel.kt'), 'w', encoding='utf-8') as f:
                     f.write(viewmodel_code)
         
         # Create Navigation Graph
         self.create_navigation_graph(code_path, analysis)
     
     def create_multi_activity_structure(self, code_path, package_name, analysis, config):
-        """Create traditional Multi-Activity structure"""
-        if config['language'] == 'kotlin':
-            from kotlin_generator import KotlinGenerator
-            main_activity = KotlinGenerator.create_main_activity(package_name, analysis, False)
-            with open(os.path.join(code_path, 'MainActivity.kt'), 'w') as f:
-                f.write(main_activity)
-        else:
-            self.create_activities(code_path, package_name, analysis)
+        """Create traditional Multi-Activity structure with professional flow"""
+        
+        # Get professional screen flow based on category
+        category = analysis.get('name', 'default')
+        screen_flow = ScreenFlowEngine.get_screen_flow(category)
+        activities = ScreenFlowEngine.generate_activity_list(category)
+        
+        logger.info(f"Creating {len(activities)} activities for {category} app")
+        
+        # Create ALL activities including MainActivity
+        for activity in activities:
+            if activity == 'MainActivity':
+                main_activity = self.create_java_main_activity(package_name, analysis)
+                with open(os.path.join(code_path, 'MainActivity.java'), 'w', encoding='utf-8') as f:
+                    f.write(main_activity)
+            else:
+                self.create_secondary_activity(code_path, package_name, activity)
     
     def create_compose_ui(self, code_path, package_name, analysis, config):
         """Create Jetpack Compose UI components"""
@@ -2065,7 +2244,7 @@ fun AppTheme(
     )
 }}
 '''
-        with open(os.path.join(theme_path, 'Theme.kt'), 'w') as f:
+        with open(os.path.join(theme_path, 'Theme.kt'), 'w', encoding='utf-8') as f:
             f.write(theme_code)
         
         # Type.kt
@@ -2090,7 +2269,7 @@ val Typography = Typography(
     )
 )
 '''
-        with open(os.path.join(theme_path, 'Type.kt'), 'w') as f:
+        with open(os.path.join(theme_path, 'Type.kt'), 'w', encoding='utf-8') as f:
             f.write(type_code)
     
     def create_navigation_graph(self, code_path, analysis):
@@ -2110,7 +2289,7 @@ val Typography = Typography(
         android:label="Home" />
 </navigation>
 '''
-        with open(os.path.join(nav_path, 'nav_graph.xml'), 'w') as f:
+        with open(os.path.join(nav_path, 'nav_graph.xml'), 'w', encoding='utf-8') as f:
             f.write(nav_graph)
     
     def create_dark_mode_resources(self, res_path, analysis):
@@ -2134,7 +2313,7 @@ val Typography = Typography(
     <color name="on_error">#000000</color>
 </resources>'''
         
-        with open(os.path.join(night_path, 'colors.xml'), 'w') as f:
+        with open(os.path.join(night_path, 'colors.xml'), 'w', encoding='utf-8') as f:
             f.write(colors_night)
         
         # themes-night.xml
@@ -2150,7 +2329,7 @@ val Typography = Typography(
     </style>
 </resources>'''
         
-        with open(os.path.join(night_path, 'themes.xml'), 'w') as f:
+        with open(os.path.join(night_path, 'themes.xml'), 'w', encoding='utf-8') as f:
             f.write(themes_night)
     
     def create_ci_cd_files(self, project_path, analysis):
@@ -2196,14 +2375,14 @@ platform :android do
   end
 end
 '''
-        with open(os.path.join(fastlane_path, 'Fastfile'), 'w') as f:
+        with open(os.path.join(fastlane_path, 'Fastfile'), 'w', encoding='utf-8') as f:
             f.write(fastfile)
         
         # Appfile
         appfile = f'''json_key_file("") # Path to the json secret file
 package_name("{analysis['name'].lower().replace(' ', '.')}")
 '''
-        with open(os.path.join(fastlane_path, 'Appfile'), 'w') as f:
+        with open(os.path.join(fastlane_path, 'Appfile'), 'w', encoding='utf-8') as f:
             f.write(appfile)
     
     def create_github_actions(self, project_path, analysis):
@@ -2281,7 +2460,7 @@ jobs:
         path: app/build/test-results/**/*.xml
         reporter: java-junit
 '''
-        with open(os.path.join(workflows_path, 'android.yml'), 'w') as f:
+        with open(os.path.join(workflows_path, 'android.yml'), 'w', encoding='utf-8') as f:
             f.write(workflow)
     
     def create_manifest(self, src_path, package_name, analysis, config):
@@ -2329,7 +2508,7 @@ jobs:
     </application>
 </manifest>'''
         
-        with open(os.path.join(src_path, 'AndroidManifest.xml'), 'w') as f:
+        with open(os.path.join(src_path, 'AndroidManifest.xml'), 'w', encoding='utf-8') as f:
             f.write(manifest_content)
     
     def create_gradle_files(self, project_path, app_path, package_name, analysis, config):
@@ -2340,8 +2519,10 @@ jobs:
         
         # build.gradle (app level) - Kotlin or Java
         plugins = []
+        kotlin_options = ''
         if config['language'] == 'kotlin':
             plugins.append("id 'org.jetbrains.kotlin.android'")
+            kotlin_options = 'kotlinOptions { jvmTarget = "11" }'
         
         app_gradle = f'''plugins {{
     id 'com.android.application'
@@ -2379,7 +2560,7 @@ android {{
         targetCompatibility JavaVersion.VERSION_11
     }}
 
-    {'kotlinOptions { jvmTarget = "11" }' if config['language'] == 'kotlin' else ''}
+    {kotlin_options}
     
     buildFeatures {{
         viewBinding true
@@ -2400,32 +2581,52 @@ dependencies {{
 }}
 '''
         
-        with open(os.path.join(app_path, 'build.gradle'), 'w') as f:
+        with open(os.path.join(app_path, 'build.gradle'), 'w', encoding='utf-8') as f:
             f.write(app_gradle)
         
         # Project level build.gradle
-        project_gradle = f'''buildscript {{
-    ext.kotlin_version = "1.9.22"
+        project_gradle = '''plugins {
+    id 'com.android.application' version '8.2.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false
+}
+'''
+        
+        with open(os.path.join(project_path, 'build.gradle'), 'w', encoding='utf-8') as f:
+            f.write(project_gradle)
+        
+        # settings.gradle
+        app_name_clean = package_name.split('.')[-1]
+        settings_gradle = f'''pluginManagement {{
     repositories {{
         google()
         mavenCentral()
+        gradlePluginPortal()
     }}
-    dependencies {{
-        classpath 'com.android.tools.build:gradle:8.2.2'
-        {'classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"' if config['language'] == 'kotlin' else ''}
+}}
+dependencyResolutionManagement {{
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {{
+        google()
+        mavenCentral()
     }}
 }}
 
-allprojects {{
-    repositories {{
-        google()
-        mavenCentral()
-    }}
-}}
+rootProject.name = "{app_name_clean}"
+include ':app'
 '''
         
-        with open(os.path.join(project_path, 'build.gradle'), 'w') as f:
-            f.write(project_gradle)
+        with open(os.path.join(project_path, 'settings.gradle'), 'w', encoding='utf-8') as f:
+            f.write(settings_gradle)
+        
+        # gradle.properties
+        gradle_properties = '''org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+org.gradle.parallel=true
+android.useAndroidX=true
+android.enableJetifier=true
+'''
+        
+        with open(os.path.join(project_path, 'gradle.properties'), 'w', encoding='utf-8') as f:
+            f.write(gradle_properties)
     
     def get_smart_dependencies(self, analysis, config):
         """Dynamically generate dependencies based on app category"""
@@ -2547,14 +2748,14 @@ class MainActivity : AppCompatActivity() {{
             data_path = os.path.join(code_path, 'data')
             os.makedirs(data_path, exist_ok=True)
             repo_code = KotlinGenerator.create_repository(package_name)
-            with open(os.path.join(data_path, 'AppRepository.kt'), 'w') as f:
+            with open(os.path.join(data_path, 'AppRepository.kt'), 'w', encoding='utf-8') as f:
                 f.write(repo_code)
 
             # Utils
             utils_code = KotlinGenerator.create_utils(package_name)
             utils_path = os.path.join(code_path, 'utils')
             os.makedirs(utils_path, exist_ok=True)
-            with open(os.path.join(utils_path, 'Utils.kt'), 'w') as f:
+            with open(os.path.join(utils_path, 'Utils.kt'), 'w', encoding='utf-8') as f:
                 f.write(utils_code)
         else:
             # Original Java implementation
@@ -2576,7 +2777,7 @@ class MainActivity : AppCompatActivity() {{
             with open(template_path, 'r') as f:
                 ai_service = f.read().replace('com.example.app', package_name)
             
-            with open(os.path.join(ai_path, 'AIService.kt'), 'w') as f:
+            with open(os.path.join(ai_path, 'AIService.kt'), 'w', encoding='utf-8') as f:
                 f.write(ai_service)
     
     def add_backend_integration(self, code_path, package_name, backend_type='firebase'):
@@ -2589,7 +2790,7 @@ class MainActivity : AppCompatActivity() {{
             with open(template_path, 'r') as f:
                 backend_service = f.read().replace('com.example.app', package_name)
             
-            with open(os.path.join(backend_path, 'BackendService.kt'), 'w') as f:
+            with open(os.path.join(backend_path, 'BackendService.kt'), 'w', encoding='utf-8') as f:
                 f.write(backend_service)
     
     def get_ai_dependencies(self):
@@ -2633,7 +2834,7 @@ class MainActivity : AppCompatActivity() {{
   }
 }'''
         
-        with open(os.path.join(app_path, 'bundle_config.json'), 'w') as f:
+        with open(os.path.join(app_path, 'bundle_config.json'), 'w', encoding='utf-8') as f:
             f.write(bundle_config)
         
         # Update build.gradle for bundle optimization

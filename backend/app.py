@@ -534,6 +534,22 @@ def generate_app_async(project_id, idea, language, theme, category, advanced_fea
         generator = AndroidAppGenerator()
         result = generator.generate_from_idea(idea, language, architecture, ui_framework, project_path, app_name)
         
+        # Build APK automatically
+        project_status[project_id].update({
+            'status': 'building_apk',
+            'progress': 96,
+            'current_step': 'APK oluşturuluyor... (Bu 2-3 dakika sürebilir)'
+        })
+        
+        apk_path = None
+        apk_built = build_apk(project_path)
+        
+        if apk_built:
+            apk_path = os.path.join(project_path, 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk')
+            logger.info(f"APK successfully built at {apk_path}")
+        else:
+            logger.warning(f"APK build failed for {project_id}, but project files are ready")
+        
         # Calculate generation time
         generation_time = time.time() - project_analytics[project_id]['start_time']
         
@@ -586,6 +602,8 @@ def generate_app_async(project_id, idea, language, theme, category, advanced_fea
                     'com.google.firebase:firebase-analytics:21.5.0 - Analytics'
                 ]),
                 'downloadId': os.path.basename(result['project_path']),
+                'apkPath': apk_path if apk_built else None,
+                'apkReady': apk_built,
                 'language': language,
                 'theme': theme,
                 'category': category,
@@ -878,6 +896,41 @@ def download_project(project_id):
         mimetype='application/zip'
     )
 
+@app.route('/download-apk/<project_id>')
+@handle_errors
+def download_apk(project_id):
+    """Download APK file for completed project"""
+    if project_id in project_status:
+        result = project_status[project_id].get('result', {})
+        download_id = result.get('downloadId', project_id)
+        project_path = os.path.join(config.PROJECT_STORAGE_PATH, download_id)
+    else:
+        project_path = os.path.join(config.PROJECT_STORAGE_PATH, project_id)
+
+    apk_path = os.path.join(project_path, 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk')
+    
+    if not os.path.exists(apk_path):
+        return jsonify({'success': False, 'error': 'APK dosyası bulunamadı'}), 404
+    
+    # Get app name for download filename
+    app_name = "App"
+    if project_id in project_status:
+        result = project_status[project_id].get('result', {})
+        app_name = result.get('appName', 'App')
+
+    # Sanitize app name for filename
+    safe_filename = ''.join(c for c in app_name if c.isalnum() or c in (' ', '-', '_')).rstrip()
+    if not safe_filename:
+        safe_filename = "App"
+
+    logger.info(f"Downloaded APK for project {project_id}")
+    return send_file(
+        apk_path,
+        as_attachment=True,
+        download_name=f"{safe_filename}.apk",
+        mimetype='application/vnd.android.package-archive'
+    )
+
 @app.route('/projects')
 @handle_errors
 def list_projects():
@@ -944,6 +997,42 @@ def count_files(path):
     except Exception as e:
         logger.error(f"Error counting files in {path}: {e}")
     return count
+
+def build_apk(project_path):
+    """Build APK for the generated project"""
+    try:
+        import subprocess
+        gradlew = os.path.join(project_path, 'gradlew.bat')
+        if os.path.exists(gradlew):
+            logger.info(f"Starting APK build for {project_path}")
+            result = subprocess.run(
+                [gradlew, 'assembleDebug'],
+                cwd=project_path,
+                capture_output=True,
+                text=True,
+                timeout=600,
+                shell=True
+            )
+            if result.returncode == 0:
+                logger.info(f"APK built successfully for {project_path}")
+                apk_path = os.path.join(project_path, 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk')
+                if os.path.exists(apk_path):
+                    logger.info(f"APK file created: {apk_path}")
+                    return True
+                else:
+                    logger.warning(f"APK file not found at {apk_path}")
+            else:
+                logger.error(f"APK build failed: {result.stderr}")
+                logger.error(f"Build output: {result.stdout}")
+        else:
+            logger.error(f"gradlew.bat not found at {gradlew}")
+        return False
+    except subprocess.TimeoutExpired:
+        logger.error(f"APK build timeout for {project_path}")
+        return False
+    except Exception as e:
+        logger.error(f"Error building APK: {e}")
+        return False
 
 # Cleanup old projects periodically
 def cleanup_old_projects():

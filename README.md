@@ -67,8 +67,15 @@ python app.py
 
 ### 3. APK Oluşturma
 1. İndirilen ZIP dosyasını açın
-2. `build_apk.bat` dosyasını çalıştırın
-3. APK dosyası `app/build/outputs/apk/debug/` klasöründe oluşur
+2. **Java 8+ kurulu olmalı** (java -version ile kontrol edin)
+3. Komut satırında proje klasörüne gidin:
+   ```bash
+   cd YourApp
+   gradlew.bat assembleDebug
+   ```
+4. APK dosyası `app/build/outputs/apk/debug/app-debug.apk` konumunda oluşur
+
+**Not:** Java yoksa [buradan](https://www.oracle.com/java/technologies/downloads/) indirin.
 
 ## 📁 Proje Yapısı
 
